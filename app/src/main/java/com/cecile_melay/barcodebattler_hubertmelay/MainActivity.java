@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.EntityCatch;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.Home;
 
 import java.util.ArrayList;
@@ -100,9 +101,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_entity_catch) {
 
+
             Intent entityCatch = new Intent(this, EntityCatch.class);
             startActivity(entityCatch);
-
+            startFragment(EntityCatch.class);
 
         } else if (id == R.id.nav_slideshow) {
 
