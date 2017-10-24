@@ -10,4 +10,7 @@
 
     <string name="scan">Capturer quelquechose</string>
 
+    <string name="scan_bar_code" />
+
+
 </resources>

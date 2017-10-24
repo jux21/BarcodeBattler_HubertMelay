@@ -118,6 +118,5 @@ public class Creature {
                 inventory_max_size + "\nSize : " + size + "\nWeight : " + weight + "\nSpeed : " + speed + "\nType : "
                 + type + "\nStrength: " + strength + "\nDefense: " + defense;
     }
-
-
+    
 }

@@ -5,4 +5,5 @@ package com.cecile_melay.barcodebattler_hubertmelay.entities;
  */
 
 public class Player {
+
 }
