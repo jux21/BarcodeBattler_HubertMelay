@@ -8,4 +8,6 @@
 
     <string name="recognize_activity">Reconnaissance d\'activité</string>
 
+    <string name="scan">Capturer quelquechose</string>
+
 </resources>

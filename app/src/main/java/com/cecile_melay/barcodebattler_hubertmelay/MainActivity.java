@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.EntityCatch;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.Home;
 import com.cecile_melay.barcodebattler_hubertmelay.utils.Util;
 
@@ -95,11 +96,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
             startFragment(Home.class);
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_entity_catch) {
+
+            startFragment(EntityCatch.class);
 
         } else if (id == R.id.nav_slideshow) {
 

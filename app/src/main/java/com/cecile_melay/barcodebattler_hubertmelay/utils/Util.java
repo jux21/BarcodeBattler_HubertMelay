@@ -10,20 +10,15 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.App;
 import com.cecile_melay.barcodebattler_hubertmelay.MainActivity;
-import com.cecile_melay.barcodebattler_hubertmelay.entities.User;
+import com.cecile_melay.barcodebattler_hubertmelay.entities.Player;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Utilisateur on 23/10/2017.
@@ -33,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 public class Util {
     private static MainActivity mainActivity;
     private static MyFragment currentFragment;
-    private static User currentUser;
+    private static Player currentPlayer;
     private static Path currentPath;
     private static List<Path> paths = new ArrayList<>();
 
@@ -94,12 +89,12 @@ public class Util {
         mainActivity = activity;
     }
 
-    public static void setCurrentUser(User currentUser) {
-        Util.currentUser = currentUser;
+    public static void setCurrentPlayer(Player currentPlayer) {
+        Util.currentPlayer = currentPlayer;
     }
 
-    public static User getCurrentUser() {
-        return currentUser;
+    public static Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public static MyFragment getCurrentFragment() {
