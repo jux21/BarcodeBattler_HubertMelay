@@ -34,9 +34,8 @@ public class EntityCatch extends Activity {
     private Camera.PictureCallback maPhoto;
     private CameraSurface cs;
     private LinearLayout llayout;
-    private Button capturer, switcher;
+    private Button capturer;
     private boolean cf = false;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,45 +45,29 @@ public class EntityCatch extends Activity {
         initialize();
     }
 
-
-    // Demande l'autorisation d'utiliser l'appareil photo au 1er démarrage
     @Override
     protected void onStart() {
         super.onStart();
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
             int hasCameraPermission = checkSelfPermission(Manifest.permission.CAMERA);
             int hasSDcardWritePermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             int hasSDcardReadPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
-
             List<String> permissions = new ArrayList<String>();
-
             if (hasCameraPermission != PackageManager.PERMISSION_GRANTED) {
                 permissions.add(Manifest.permission.CAMERA);
-
             }
-
-
             if (hasSDcardWritePermission != PackageManager.PERMISSION_GRANTED) {
                 permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
             }
-
             if (hasSDcardReadPermission != PackageManager.PERMISSION_GRANTED) {
                 permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-
             }
-
             if (!permissions.isEmpty()) {
                 requestPermissions(permissions.toArray(new String[permissions.size()]), 111);
             }
-
         }
-
     }
 
-    // Rappel pour le résultat de la demande d'autorisations.
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -92,11 +75,8 @@ public class EntityCatch extends Activity {
                 for (int i = 0; i < permissions.length; i++) {
                     if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                         System.out.println("Permissions --> " + "Permission Accepté: " + permissions[i]);
-
-
                     } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
                         System.out.println("Permissions --> " + "Permission Refusé: " + permissions[i]);
-
                     }
                 }
             }
@@ -107,7 +87,6 @@ public class EntityCatch extends Activity {
         }
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -117,31 +96,20 @@ public class EntityCatch extends Activity {
             finish();
         }
         if (maCamera == null) {
-            if ( CameraFrontaleDispo() < 0) {
-                Toast.makeText(this, "Aucun appareil photo frontal détecté.", Toast.LENGTH_LONG).show();
-                //si aucune camera avant detecté, ne pas afficher le bouton switch
-                switcher.setVisibility(View.GONE);
+            if (CameraArriereDispo() < 0) {
+                Toast.makeText(this, "Aucun appareil photo arrière détecté.", Toast.LENGTH_LONG).show();
             }
-            if (maCamera == null) {
-                if (CameraArriereDispo() < 0) {
-                    Toast.makeText(this, "Aucun appareil photo arrière détecté.", Toast.LENGTH_LONG).show();
-                    //si aucune camera aRRIERE detecté, ne pas afficher le bouton switch
-                    switcher.setVisibility(View.GONE);
-                }
-            }
-            try {
-                releaseCameraAndPreview();
-                    //maCamera = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
-                maCamera = Camera.open(CameraArriereDispo());
-
-            } catch (Exception e) {
-                Log.e(getString(R.string.app_name), "failed to open Camera");
-                e.printStackTrace();
-            }
-
-            maPhoto = getPictureCallback();
-            cs.refreshCamera(maCamera);
         }
+        try {
+            releaseCameraAndPreview();
+            maCamera = Camera.open(CameraArriereDispo());
+        } catch (Exception e) {
+            Log.e(getString(R.string.app_name), "failed to open Camera");
+            e.printStackTrace();
+        }
+
+        maPhoto = getPictureCallback();
+        cs.refreshCamera(maCamera);
     }
 
     private void releaseCameraAndPreview() {
@@ -283,12 +251,9 @@ public class EntityCatch extends Activity {
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
                 File photoFile = getPhotoFile();
-
                 if (photoFile == null) {
                     Toast to = Toast.makeText(contexte,"Impossible d'acceder à la carte SD", Toast.LENGTH_LONG);
                     return;
-
-
                 }
                 try {
                     FileOutputStream fos = new FileOutputStream(photoFile);
