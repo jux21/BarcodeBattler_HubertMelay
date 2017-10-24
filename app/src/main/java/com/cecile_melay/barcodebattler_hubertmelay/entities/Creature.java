@@ -16,6 +16,7 @@ public class Creature {
     private int speed;  // Calculated with size - weight
     private int strength;  // Calculated with size and weight
     private int defense;
+    private int oui;
 
 
     public Creature() {}
