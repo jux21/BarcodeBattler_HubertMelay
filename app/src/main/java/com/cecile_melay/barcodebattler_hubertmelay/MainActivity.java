@@ -15,7 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
+import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.Home;
 
@@ -54,6 +57,20 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Insertion de données tests en BD
+        CreatureDAO creatureDAO = new CreatureDAO(this);
+        Creature creature1 = new Creature("Jux",120,"air",5,80,50,30);
+        creatureDAO.open();
+        creatureDAO.insertCreature(creature1);
+        Creature creatureFromBDD = creatureDAO.getCreatureWithName("Jux");
+        if(creatureFromBDD != null) {
+            //On affiche les infos de la Creature dans un Toast
+            Toast.makeText(this, creatureFromBDD.toString(), Toast.LENGTH_LONG).show();
+        }
+
+
+
     }
 
     @Override

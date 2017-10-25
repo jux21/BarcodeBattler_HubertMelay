@@ -21,7 +21,7 @@ public class Creature {
 
     public Creature() {}
 
-    public Creature(String name, int hp, String type, int inventory_max_size, int size, int weight, int defense ) {
+    public Creature(String name, int hp, String type, int inventory_max_size, int size, int weight, int defense) {
         this.name = name;
         this.hp = hp;
         this.type = type;

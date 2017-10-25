@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.cecile_melay.barcodebattler_hubertmelay.database.DatabaseHandler;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 
+import java.util.Collection;
+
 /**
  * Created by jux on 24/10/2017.
  */
@@ -99,6 +101,12 @@ public class CreatureDAO {
     public int removeCreatureWithID(int id){
         //Suppression d'une créature de la BDD grâce à l'ID
         return bdd.delete(CREATURE_TABLE_NAME, COL_ID + " = " +id, null);
+    }
+
+    public Creature getCreatureWithName(String name){
+        //Récupère dans un Cursor les valeurs correspondant à une créature contenu dans la BDD
+        Cursor c = bdd.query(CREATURE_TABLE_NAME, new String[] {COL_ID, COL_CREATURE_NAME, COL_CREATURE_HP,COL_CREATURE_TYPE, COL_CREATURE_INVENTORY_MAX_SIZE, COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE}, COL_CREATURE_NAME + " LIKE \"" + name +"\"", null, null, null, null);
+        return cursorToCreature(c);
     }
 
     //Cette méthode permet de convertir un cursor en un Creature
