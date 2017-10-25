@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayCreatures;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayEquipmentAndPotions;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.Home;
 
 import java.util.ArrayList;
@@ -121,9 +123,13 @@ public class MainActivity extends AppCompatActivity
             Intent entityCatch = new Intent(this, BarCodeScanner.class);
             startActivity(entityCatch);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_display_creatures) {
 
-        } else if (id == R.id.nav_manage) {
+            startFragment(DisplayCreatures.class);
+
+        } else if (id == R.id.nav_display_equipment_and_potions) {
+
+            startFragment(DisplayEquipmentAndPotions.class);
 
         } else if (id == R.id.nav_share) {
 
