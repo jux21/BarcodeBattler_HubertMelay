@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar;
     private List<MyFragment> fragments = new ArrayList<>();
     private MyFragment homeFragment;
+    //private CreatureDAO creatureDAO;
 
 
     @Override
@@ -63,13 +64,19 @@ public class MainActivity extends AppCompatActivity
         // Insertion de données tests en BD
         CreatureDAO creatureDAO = new CreatureDAO(this);
         Creature creature1 = new Creature("Jux",120,"air",5,80,50,30);
+        Creature creature2 = new Creature("Cecile",140,"feu",3,50,20,10);
+        Creature creature3 = new Creature("Mad",120,"eau",8,80,100,300);
+        Creature creature4 = new Creature("Max",120,"terre",6,90,75,160);
         creatureDAO.open();
-        creatureDAO.insertCreature(creature1);
-        Creature creatureFromBDD = creatureDAO.getCreatureWithName("Jux");
-        if(creatureFromBDD != null) {
+        //creatureDAO.insertCreature(creature1);
+        //creatureDAO.insertCreature(creature2);
+        //creatureDAO.insertCreature(creature3);
+        //creatureDAO.insertCreature(creature4);
+        //Creature creatureFromBDD = creatureDAO.getCreatureWithName("Jux");
+        //if(creatureFromBDD != null) {
             //On affiche les infos de la Creature dans un Toast
-            Toast.makeText(this, creatureFromBDD.toString(), Toast.LENGTH_LONG).show();
-        }
+            //Toast.makeText(this, creatureFromBDD.toString(), Toast.LENGTH_LONG).show();
+        //}
 
 
 

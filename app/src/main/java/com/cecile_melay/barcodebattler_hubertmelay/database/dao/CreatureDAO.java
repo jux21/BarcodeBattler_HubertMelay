@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import com.cecile_melay.barcodebattler_hubertmelay.database.DatabaseHandler;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by jux on 24/10/2017.
@@ -105,8 +108,24 @@ public class CreatureDAO {
 
     public Creature getCreatureWithName(String name){
         //Récupère dans un Cursor les valeurs correspondant à une créature contenu dans la BDD
-        Cursor c = bdd.query(CREATURE_TABLE_NAME, new String[] {COL_ID, COL_CREATURE_NAME, COL_CREATURE_HP,COL_CREATURE_TYPE, COL_CREATURE_INVENTORY_MAX_SIZE, COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE}, COL_CREATURE_NAME + " LIKE \"" + name +"\"", null, null, null, null);
+        Cursor c = bdd.query(CREATURE_TABLE_NAME,
+                new String[] {COL_ID, COL_CREATURE_NAME, COL_CREATURE_HP,COL_CREATURE_TYPE, COL_CREATURE_INVENTORY_MAX_SIZE,
+                COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE},
+                COL_CREATURE_NAME + " LIKE \"" + name +"\"", null, null, null, null);
         return cursorToCreature(c);
+    }
+
+    public List<Creature> getAllCreature(){
+        Cursor cursor = bdd.rawQuery("select * from "+CREATURE_TABLE_NAME,null);
+        return cursorToCreatures(cursor);
+    }
+
+    public ArrayList<String> creaturesToString(List<Creature> creatures) {
+        ArrayList<String> creaturesString = new ArrayList<String>();
+        for (int i = 0; i < creatures.size(); i++) {
+            creaturesString.add(creatures.get(i).toString());
+        }
+        return creaturesString;
     }
 
     //Cette méthode permet de convertir un cursor en un Creature
@@ -137,6 +156,41 @@ public class CreatureDAO {
 
         //On retourne le livre
         return creature;
+    }
+
+    private List<Creature> cursorToCreatures(Cursor c){
+        //si aucun élément n'a été retourné dans la requête, on renvoie null
+        if (c.getCount() == 0)
+            return null;
+
+        List<Creature> listCreatures = new ArrayList<Creature>();
+        if (c.moveToFirst()) {
+            while (!c.isAfterLast()) {
+                //On créé une Creature
+                Creature creature = new Creature();
+                //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
+                creature.setId(c.getInt(NUM_COL_ID));
+                creature.setName(c.getString(NUM_COL_CREATURE_NAME));
+                creature.setHp(c.getInt(NUM_COL_CREATURE_HP));
+                creature.setName(c.getString(NUM_COL_CREATURE_NAME));
+                creature.setType(c.getString(NUM_COL_CREATURE_TYPE));
+                creature.setInventory_max_size(c.getInt(NUM_COL_CREATURE_INVENTORY_MAX_SIZE));
+                creature.setSize(c.getInt(NUM_COL_CREATURE_SIZE));
+                creature.setWeight(c.getInt(NUM_COL_CREATURE_WEIGHT));
+                creature.setSpeed(c.getInt(NUM_COL_CREATURE_SPEED));
+                creature.setStrength(c.getInt(NUM_COL_CREATURE_STRENGTH));
+                creature.setDefense(c.getInt(NUM_COL_CREATURE_DEFENSE));
+
+                listCreatures.add(creature);
+                c.moveToNext();
+            }
+        }
+
+        //On ferme le cursor
+        c.close();
+
+        //On retourne le livre
+        return listCreatures;
     }
 
 }
