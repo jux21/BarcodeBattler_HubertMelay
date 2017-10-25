@@ -2,6 +2,7 @@ package com.cecile_melay.barcodebattler_hubertmelay;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,13 +41,29 @@ public class BarCodeScanner extends Activity implements ZXingScannerView.ResultH
 
     @Override
     public void handleResult(Result rawResult) {
-        //Récupérer le résultat du scanner ici
-        Log.e("handler", rawResult.getText()); // Prints scan results
-        Log.e("handler", rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode)
+
+        String barCodeFormat = rawResult.getBarcodeFormat().toString();
+        String result = rawResult.getText();
         // afficher le résultat dans une dialog box.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Contenu du code");
-        builder.setMessage(rawResult.getText());
+        builder.setTitle("Félicitation, entité capturée !");
+        builder.setMessage(result+  " - " + barCodeFormat);
+
+        builder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                    }
+                });
+
+        builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
         AlertDialog alerte = builder.create();
         alerte.show();
         // Pour redémarrer le scanner.
