@@ -23,8 +23,8 @@ public class CreatureDAO {
     private static final String DB_NAME = "creature.db";
 
     private static final String CREATURE_TABLE_NAME = DatabaseHandler.CREATURE_TABLE_NAME;
-    private static final String COL_ID = DatabaseHandler.CREATURE_ID;
-    private static final int NUM_COL_ID = 0;
+    private static final String COL_CREATURE_ID = DatabaseHandler.CREATURE_ID;
+    private static final int NUM_COL_CREATURE_ID = 0;
     private static final String COL_CREATURE_NAME = DatabaseHandler.CREATURE_NAME;
     private static final int NUM_COL_CREATURE_NAME = 1;
     private static final String COL_CREATURE_HP = DatabaseHandler.CREATURE_HP;
@@ -98,18 +98,18 @@ public class CreatureDAO {
         values.put(COL_CREATURE_STRENGTH, creature.getStrength());
         values.put(COL_CREATURE_DEFENSE, creature.getDefense());
 
-        return bdd.update(CREATURE_TABLE_NAME, values, COL_ID + " = " +id, null);
+        return bdd.update(CREATURE_TABLE_NAME, values, COL_CREATURE_ID + " = " +id, null);
     }
 
     public int removeCreatureWithID(int id){
         //Suppression d'une créature de la BDD grâce à l'ID
-        return bdd.delete(CREATURE_TABLE_NAME, COL_ID + " = " +id, null);
+        return bdd.delete(CREATURE_TABLE_NAME, COL_CREATURE_ID + " = " +id, null);
     }
 
     public Creature getCreatureWithName(String name){
-        //Récupère dans un Cursor les valeurs correspondant à une créature contenu dans la BDD
+        //Récupère dans un Cursor les valeurs correspondant à une créature contenue dans la BDD
         Cursor c = bdd.query(CREATURE_TABLE_NAME,
-                new String[] {COL_ID, COL_CREATURE_NAME, COL_CREATURE_HP,COL_CREATURE_TYPE, COL_CREATURE_INVENTORY_MAX_SIZE,
+                new String[] {COL_CREATURE_ID, COL_CREATURE_NAME, COL_CREATURE_HP,COL_CREATURE_TYPE, COL_CREATURE_INVENTORY_MAX_SIZE,
                 COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE},
                 COL_CREATURE_NAME + " LIKE \"" + name +"\"", null, null, null, null);
         return cursorToCreature(c);
@@ -139,7 +139,7 @@ public class CreatureDAO {
         //On créé une Creature
         Creature creature = new Creature();
         //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
-        creature.setId(c.getInt(NUM_COL_ID));
+        creature.setId(c.getInt(NUM_COL_CREATURE_ID));
         creature.setName(c.getString(NUM_COL_CREATURE_NAME));
         creature.setHp(c.getInt(NUM_COL_CREATURE_HP));
         creature.setName(c.getString(NUM_COL_CREATURE_NAME));
@@ -169,7 +169,7 @@ public class CreatureDAO {
                 //On créé une Creature
                 Creature creature = new Creature();
                 //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
-                creature.setId(c.getInt(NUM_COL_ID));
+                creature.setId(c.getInt(NUM_COL_CREATURE_ID));
                 creature.setName(c.getString(NUM_COL_CREATURE_NAME));
                 creature.setHp(c.getInt(NUM_COL_CREATURE_HP));
                 creature.setName(c.getString(NUM_COL_CREATURE_NAME));

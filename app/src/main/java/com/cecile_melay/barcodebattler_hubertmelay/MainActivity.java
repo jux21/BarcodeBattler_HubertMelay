@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
+import com.cecile_melay.barcodebattler_hubertmelay.database.dao.EquipmentDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayCreatures;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity
         //creatureDAO.insertCreature(creature2);
         //creatureDAO.insertCreature(creature3);
         //creatureDAO.insertCreature(creature4);
+        creatureDAO.close();
         //Creature creatureFromBDD = creatureDAO.getCreatureWithName("Jux");
         //if(creatureFromBDD != null) {
             //On affiche les infos de la Creature dans un Toast

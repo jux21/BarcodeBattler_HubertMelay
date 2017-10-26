@@ -14,7 +14,7 @@ public class Creature {
     private int size;
     private int weight;
     private int speed;  // Calculated with size - weight
-    private int strength;  // Calculated with size and weight
+    private int strength;  // Calculated with (size + weight) / 2
     private int defense;
     private int non;
 
@@ -30,7 +30,7 @@ public class Creature {
         this.weight = weight;
         this.defense = defense;
         this.speed = this.size - this.weight;
-        this.strength = this.size - this.weight;
+        this.strength = (this.size + this.weight) / 2;
     }
 
     public int getId() {
