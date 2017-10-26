@@ -50,9 +50,5 @@ public class DisplayCreatures extends MyFragment {
 
             listCreatures.setAdapter(arrayAdapter);
         }
-
-
-
-
     }
 }

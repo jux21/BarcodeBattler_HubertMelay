@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.EquipmentDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
+import com.cecile_melay.barcodebattler_hubertmelay.entities.Equipment;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayCreatures;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayEquipmentAndPotions;
@@ -65,16 +66,28 @@ public class MainActivity extends AppCompatActivity
 
         // Insertion de données tests en BD
         CreatureDAO creatureDAO = new CreatureDAO(this);
+        EquipmentDAO equipmentDAO = new EquipmentDAO(this);
+
         Creature creature1 = new Creature("Jux",120,"air",5,80,50,30);
         Creature creature2 = new Creature("Cecile",140,"feu",3,50,20,10);
         Creature creature3 = new Creature("Mad",120,"eau",8,80,100,300);
         Creature creature4 = new Creature("Max",120,"terre",6,90,75,160);
+        Equipment equipment1 = new Equipment("Cape de feu","defense",10);
+        Equipment equipment2 = new Equipment("Épée du dragon","attaque",10);
+        Equipment equipment3 = new Equipment("Basket Adidas","vitesse",5);
+
         creatureDAO.open();
-        //creatureDAO.insertCreature(creature1);
-        //creatureDAO.insertCreature(creature2);
-        //creatureDAO.insertCreature(creature3);
-        //creatureDAO.insertCreature(creature4);
+        creatureDAO.insertCreature(creature1);
+        creatureDAO.insertCreature(creature2);
+        creatureDAO.insertCreature(creature3);
+        creatureDAO.insertCreature(creature4);
         creatureDAO.close();
+        equipmentDAO.open();
+        equipmentDAO.insertEquipment(equipment1);
+        equipmentDAO.insertEquipment(equipment2);
+        equipmentDAO.insertEquipment(equipment3);
+        equipmentDAO.close();
+
         //Creature creatureFromBDD = creatureDAO.getCreatureWithName("Jux");
         //if(creatureFromBDD != null) {
             //On affiche les infos de la Creature dans un Toast
