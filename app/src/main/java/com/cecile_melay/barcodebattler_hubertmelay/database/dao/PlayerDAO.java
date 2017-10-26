@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.DatabaseHandler;
-import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Player;
 
 import java.util.ArrayList;
@@ -109,8 +108,8 @@ public class PlayerDAO {
                 player.setName(c.getString(NUM_COL_PLAYER_NAME));
                 player.setNbWin(c.getInt(NUM_COL_PLAYER_WINS));
                 player.setNbLosses(c.getInt(NUM_COL_PLAYER_LOSSES));
-                player.setCreatureMaxSize(c.getInt(NUM_COL_PLAYER_CREATURE_MAX_SIZE));
                 player.setInventoryMaxSize(c.getInt(NUM_COL_PLAYER_INVENTORY_MAX_SIZE));
+                player.setCreatureMaxSize(c.getInt(NUM_COL_PLAYER_CREATURE_MAX_SIZE));
                 listPlayers.add(player);
                 c.moveToNext();
             }

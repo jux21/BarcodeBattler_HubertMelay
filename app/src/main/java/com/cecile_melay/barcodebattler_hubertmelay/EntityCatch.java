@@ -64,7 +64,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
         AlertDialog alterDialog = new AlertDialog.Builder(this)
             .setTitle(message)
             .setMessage(result+  " - " + barCodeFormat +
-                    "\n \n Souhaitez vous capturer d'autres entités ?")
+                    "\n\nSouhaitez vous capturer d'autres entités ?")
             .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

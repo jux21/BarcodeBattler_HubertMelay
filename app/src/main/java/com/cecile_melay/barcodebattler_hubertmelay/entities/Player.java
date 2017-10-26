@@ -6,6 +6,23 @@ package com.cecile_melay.barcodebattler_hubertmelay.entities;
 
 public class Player {
 
+    private  String name;
+    private int level;
+    private int nbWin;
+    private int nbLosses;
+    private int inventoryMaxSize;
+    private int creatureMaxSize;
+
+    public Player() {}
+
+    public Player(String name, int nbWin, int nbLosses, int inventoryMaxSize, int creatureMaxSize) {
+        this.name = name;
+        this.nbWin = nbWin;
+        this.nbLosses = nbLosses;
+        this.inventoryMaxSize = inventoryMaxSize;
+        this.creatureMaxSize = creatureMaxSize;
+    }
+
     private int id;
 
     public int getId() {
@@ -15,13 +32,6 @@ public class Player {
     public void setId(int id) {
         this.id = id;
     }
-
-    private  String name;
-    private int level;
-    private int nbWin;
-    private int nbLosses;
-    private int inventoryMaxSize;
-    private int creatureMaxSize;
 
     public void setNbWin(int nbWin) {
         this.nbWin = nbWin;
@@ -53,13 +63,6 @@ public class Player {
 
     public int getCreatureMaxSize() {
         return creatureMaxSize;
-    }
-
-    public Player() {}
-
-    public Player(String name, int level, int nbWin, int nbLosses, int inventoryMaxSize, int creatureMaxSize) {
-        this.name = name;
-        this.level = level;
     }
 
     public String getName() {
