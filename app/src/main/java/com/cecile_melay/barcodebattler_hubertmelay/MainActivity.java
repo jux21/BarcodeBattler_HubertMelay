@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         }
         else {
             List<String> playersFromBDDString = playerDAO.playersToString(playersFromBDD);
-            if(playersFromBDDString == null) {
+            if(playersFromBDDString != null) {
                 for (String player : playersFromBDDString) {
                     launchGame();
                 }
@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity
 
     private void launchGame() {
         setContentView(R.layout.activity_main);
+        startFragment(Home.class);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
