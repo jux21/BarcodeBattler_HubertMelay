@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.DatabaseHandler;
-import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Equipment;
 
 import java.util.ArrayList;
@@ -110,7 +109,7 @@ public class EquipmentDAO {
 
         //Sinon on se place sur le premier élément
         c.moveToFirst();
-        //On créé une Creature
+        //On créé un equipment
         Equipment equipment = new Equipment();
         //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
         equipment.setId(c.getInt(NUM_COL_EQUIPMENT_ID));
