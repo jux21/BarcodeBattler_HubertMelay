@@ -5,7 +5,7 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Bienvenue" />
+            android:title="Maison" />
         <item
             android:id="@+id/nav_entity_catch"
             android:icon="@drawable/ic_menu_gallery"
