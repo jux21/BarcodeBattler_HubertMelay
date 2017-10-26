@@ -18,11 +18,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.EquipmentDAO;
+import com.cecile_melay.barcodebattler_hubertmelay.database.dao.PlayerDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Equipment;
+import com.cecile_melay.barcodebattler_hubertmelay.entities.Player;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayCreatures;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayEquipmentAndPotions;
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
+    Button btnCreateNewPlayer;
     private List<MyFragment> fragments = new ArrayList<>();
     private MyFragment homeFragment;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
@@ -42,6 +48,40 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PlayerDAO playerDAO = new PlayerDAO(this);
+        playerDAO.open();
+        List<Player> playersFromBDD = playerDAO.getAllPlayers();
+        if(playersFromBDD == null) {
+            setContentView(R.layout.create_new_player);
+            btnCreateNewPlayer = (Button) this.findViewById(R.id.create_new_player);
+            btnCreateNewPlayer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    createNewPlayer();
+                }
+            });
+        }
+        else {
+            List<String> playersFromBDDString = playerDAO.playersToString(playersFromBDD);
+            if(playersFromBDDString == null) {
+                for (String player : playersFromBDDString) {
+                    launchGame();
+                }
+            }
+
+        }
+    }
+
+    private void createNewPlayer() {
+        PlayerDAO playerDAO = new PlayerDAO(this);
+        playerDAO.open();
+        Player player = new Player("Cécile", 0, 0, 0, 10, 10);
+        playerDAO.insertPlayer(player);
+        launchGame();
+    }
+
+    private void launchGame() {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,6 +104,22 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //createEntities();
+
+        //Creature creatureFromBDD = creatureDAO.getCreatureWithName("Jux");
+        //if(creatureFromBDD != null) {
+        //On affiche les infos de la Creature dans un Toast
+        //Toast.makeText(this, creatureFromBDD.toString(), Toast.LENGTH_LONG).show();
+        //}
+
+
+        // Boite de dialogue pour demander la permission camera
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+        }
+    }
+
+    private void createEntities() {
         // Insertion de données tests en BD
         CreatureDAO creatureDAO = new CreatureDAO(this);
         EquipmentDAO equipmentDAO = new EquipmentDAO(this);
@@ -76,30 +132,18 @@ public class MainActivity extends AppCompatActivity
         Equipment equipment2 = new Equipment("Épée du dragon","attaque",10);
         Equipment equipment3 = new Equipment("Basket Adidas","vitesse",5);
 
-        creatureDAO.open();
-        creatureDAO.insertCreature(creature1);
-        creatureDAO.insertCreature(creature2);
-        creatureDAO.insertCreature(creature3);
-        creatureDAO.insertCreature(creature4);
-        creatureDAO.close();
-        equipmentDAO.open();
-        equipmentDAO.insertEquipment(equipment1);
-        equipmentDAO.insertEquipment(equipment2);
-        equipmentDAO.insertEquipment(equipment3);
-        equipmentDAO.close();
-
-        //Creature creatureFromBDD = creatureDAO.getCreatureWithName("Jux");
-        //if(creatureFromBDD != null) {
-            //On affiche les infos de la Creature dans un Toast
-            //Toast.makeText(this, creatureFromBDD.toString(), Toast.LENGTH_LONG).show();
-        //}
-
-
-        // Boite de dialogue pour demander la permission camera
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
-        }
-
+        //creatureDAO.open();
+        //creatureDAO.open();
+        //creatureDAO.insertCreature(creature1);
+        //creatureDAO.insertCreature(creature2);
+        //creatureDAO.insertCreature(creature3);
+        //creatureDAO.insertCreature(creature4);
+        //creatureDAO.close();
+        //equipmentDAO.open();
+        //equipmentDAO.insertEquipment(equipment1);
+        //equipmentDAO.insertEquipment(equipment2);
+        //equipmentDAO.insertEquipment(equipment3);
+        //equipmentDAO.close();
     }
 
     @Override

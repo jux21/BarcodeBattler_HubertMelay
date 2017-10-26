@@ -4,32 +4,32 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/ic_launcher"
             android:title="Maison" />
         <item
             android:id="@+id/nav_entity_catch"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@android:drawable/ic_menu_mylocation"
             android:title="Capturer" />
         <item
             android:id="@+id/nav_display_creatures"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@android:drawable/btn_star_big_on"
             android:title="Créatures" />
         <item
             android:id="@+id/nav_display_equipment_and_potions"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@android:drawable/ic_lock_lock"
             android:title="Sac" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Combat">
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:icon="@android:drawable/ic_media_play"
+                android:title="Local" />
             <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:icon="@android:drawable/ic_media_ff"
+                android:title="Réseau" />
         </menu>
     </item>
 
