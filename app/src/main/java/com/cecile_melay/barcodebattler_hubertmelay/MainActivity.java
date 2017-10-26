@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
     private void createNewPlayer() {
         PlayerDAO playerDAO = new PlayerDAO(this);
         playerDAO.open();
-        Player player = new Player("Cécile", 0, 0, 0, 10, 10);
+        Player player = new Player("Cécile", 0, 0, 10, 10);
         playerDAO.insertPlayer(player);
         launchGame();
     }
