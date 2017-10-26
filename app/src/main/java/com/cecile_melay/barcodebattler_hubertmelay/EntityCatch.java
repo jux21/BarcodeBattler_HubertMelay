@@ -136,22 +136,76 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
     }
 
     private void createCreature13(String result) {
+        String name ="";
+        int hp = 0;
+        String type = "";
+        int inventory_max_size = 0;
+        int size = 0;
+        int weight = 0;
+        int defense = 0;
+
         String test = "0123456789012";
         char[] array = result.toCharArray();
 
         for (int i = 0; i < array.length; i++) {
-            //array[i];
-        }
-        String name;
-        int hp;
-        String type;
-        int inventory_max_size;
-        int size;
-        int weight;
-        int defense;
 
-       // Creature creature13 = new Creature(name,  hp,  type,  inventory_max_size,  size,  weight,  defense);
-       // persistCreature(creature13);
+            name = String.valueOf(array[0] + array[1] + array[2]+array[3]);
+
+            hp = array[6];
+            hp += array[7];
+
+            type = getType(array[8]);
+
+            inventory_max_size = array[9];
+
+            size = array[10];
+
+            weight = array[11];
+
+            defense = array[12];
+        }
+
+        if (name != "" &&  hp != 0 &&  type != "" &&  inventory_max_size != 0 && size != 0  && weight != 0  && defense  != 0) {
+            Creature creature13 = new Creature(name, hp, type, inventory_max_size, size, weight, defense);
+            persistCreature(creature13);
+        }
+    }
+
+    private String getType(char c) {
+        String type = "";
+        switch(Character.getNumericValue(c)) {
+            case 0:
+                type = "feu";
+                break;
+            case 1:
+                type = "glace";
+                break;
+            case 2:
+                type = "électrique";
+                break;
+            case 3:
+                type = "roche";
+                break;
+            case 4:
+                type = "plante";
+                break;
+            case 5:
+                type = "ténébre";
+                break;
+            case 6:
+                type = "dragon";
+                break;
+            case 7:
+                type = "insecte";
+                break;
+            case 8:
+                type = "combat";
+                break;
+            case 9:
+                type = "poison";
+                break;
+        }
+        return type;
     }
 
     private void createPotion(String result) {
