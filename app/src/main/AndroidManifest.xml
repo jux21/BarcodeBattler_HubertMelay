@@ -26,7 +26,7 @@
         </activity>
 
         <activity android:name=".EntityCatch" android:screenOrientation="portrait"/>
-        <activity android:name=".BarCodeScanner" android:screenOrientation="portrait"/>
+        <activity android:name=".EntityCatch" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

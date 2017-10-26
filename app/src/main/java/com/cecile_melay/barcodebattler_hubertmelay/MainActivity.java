@@ -18,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_entity_catch) {
 
             // Handle the camera action
-            Intent entityCatch = new Intent(this, BarCodeScanner.class);
+            Intent entityCatch = new Intent(this, EntityCatch.class);
             startActivity(entityCatch);
 
         } else if (id == R.id.nav_display_creatures) {
