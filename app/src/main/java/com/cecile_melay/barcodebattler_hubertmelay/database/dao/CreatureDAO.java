@@ -119,7 +119,7 @@ public class CreatureDAO {
         //Récupère dans un Cursor les valeurs correspondant à une créature contenue dans la BDD
         Cursor c = bdd.query(CREATURE_TABLE_NAME,
                 new String[] {COL_CREATURE_ID, COL_CREATURE_NAME, COL_CREATURE_HP,COL_CREATURE_TYPE, COL_CREATURE_INVENTORY_MAX_SIZE,
-                        COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE},
+                COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE},
                 COL_CREATURE_ID + " LIKE \"" + id +"\"", null, null, null, null);
         return cursorToCreature(c);
     }

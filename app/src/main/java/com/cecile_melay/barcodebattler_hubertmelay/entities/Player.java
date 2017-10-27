@@ -8,19 +8,19 @@ public class Player {
 
     private int id;
     private String name;
-    private int nbWin;
-    private int nbLosses;
+    private int nb_wins;
+    private int nb_losses;
     private int inventory_max_size;
     private int creature_max_size;
 
     public Player() {}
 
-    public Player(String name, int nbWin, int nbLosses, int inventoryMaxSize, int creatureMaxSize) {
+    public Player(String name, int nb_wins, int nb_losses, int inventory_max_size, int creature_max_size) {
         this.name = name;
-        this.nbWin = nbWin;
-        this.nbLosses = nbLosses;
-        this.inventory_max_size = inventoryMaxSize;
-        this.creature_max_size = creatureMaxSize;
+        this.nb_wins = nb_wins;
+        this.nb_losses = nb_losses;
+        this.inventory_max_size = inventory_max_size;
+        this.creature_max_size = creature_max_size;
     }
 
     public int getId() {
@@ -31,28 +31,28 @@ public class Player {
         this.id = id;
     }
 
-    public void setNbWin(int nbWin) {
-        this.nbWin = nbWin;
+    public void setNbWin(int nb_wins) {
+        this.nb_wins = nb_wins;
     }
 
-    public void setNbLosses(int nbLosses) {
-        this.nbLosses = nbLosses;
+    public void setNbLosses(int nb_losses) {
+        this.nb_losses = nb_losses;
     }
 
-    public void setInventoryMaxSize(int inventoryMaxSize) {
-        this.inventory_max_size = inventoryMaxSize;
+    public void setInventoryMaxSize(int inventory_max_size) {
+        this.inventory_max_size = inventory_max_size;
     }
 
-    public void setCreatureMaxSize(int creatureMaxSize) {
-        this.creature_max_size = creatureMaxSize;
+    public void setCreatureMaxSize(int creature_max_size) {
+        this.creature_max_size = creature_max_size;
     }
 
     public int getNbWin() {
-        return nbWin;
+        return nb_wins;
     }
 
     public int getNbLosses() {
-        return nbLosses;
+        return nb_losses;
     }
 
     public int getInventoryMaxSize() {

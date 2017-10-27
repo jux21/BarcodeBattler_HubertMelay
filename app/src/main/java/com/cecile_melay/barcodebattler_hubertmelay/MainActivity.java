@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         playerDAO.open();
         List<Player> playersFromBDD = playerDAO.getAllPlayers();
 
-        if(playersFromBDD == null || playerName == "") {
+        if(playersFromBDD.isEmpty()) {
             setContentView(R.layout.create_new_player);
             btnCreateNewPlayer = (Button) this.findViewById(R.id.create_new_player);
             editText = (AutoCompleteTextView) this.findViewById(R.id.player_name);
@@ -101,13 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
         } else {
-
-            for(Player player :  playersFromBDD) {
-                //playerName = player.getName();
-
-                launchGame();
-            }
-
+            launchGame();
         }
 
 
@@ -153,9 +147,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        PlayerDAO playerDAO = new PlayerDAO(this);
+        playerDAO.open();
+        List<Player> playersFromBDD = playerDAO.getAllPlayers();
+
         View headerView = navigationView.getHeaderView(0);
         playerNameTextView = (TextView) headerView.findViewById(R.id.display_player_name);
-        playerNameTextView.setText(playerName);
+        playerNameTextView.setText(playersFromBDD.get(0).getName());
 
         createEntities();
     }
@@ -311,30 +309,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void startDisplayCreatureFragment(final Class<? extends MyFragment> fragmentClass, String id) {
         params = id;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    MyFragment fragment = fragmentClass.newInstance();
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.fragment_frame, fragment);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    ft.commit();
-
-                    if (homeFragment == null) {
-                        homeFragment = fragment;
-                    } else {
-                        fragments.add(fragment);
-                    }
-
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        startFragment(fragmentClass);
     }
 
 }
