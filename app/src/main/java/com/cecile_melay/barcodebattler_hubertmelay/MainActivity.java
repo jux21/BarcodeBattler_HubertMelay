@@ -8,11 +8,13 @@ import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Bundle;
+import android.support.design.internal.NavigationMenuPresenter;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,20 +42,35 @@ import com.cecile_melay.barcodebattler_hubertmelay.entities.Equipment;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Player;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.*;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayCreature;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayCreatures;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayEquipmentAndPotions;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.Home;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Toolbar toolbar;
-    private Button btnCreateNewPlayer;
-    private TextView textViewNamePlayer;
+
+    Toolbar toolbar;
+    Button btnCreateNewPlayer;
+    TextView playerNameTextView;
+    AutoCompleteTextView editText;
+    String playerName = "";
     private List<MyFragment> fragments = new ArrayList<>();
     private MyFragment homeFragment;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
     private static final int MY_PERMISSIONS_NFC = 0;
+    String params = "";
+
+    public String getParams() {
+        return params;
+    }
+
+    public void setParams(String params) {
+        this.params = params;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,22 +88,24 @@ public class MainActivity extends AppCompatActivity
         PlayerDAO playerDAO = new PlayerDAO(this);
         playerDAO.open();
         List<Player> playersFromBDD = playerDAO.getAllPlayers();
-        if(playersFromBDD == null) {
+
+        if(playersFromBDD == null || playerName == "") {
             setContentView(R.layout.create_new_player);
             btnCreateNewPlayer = (Button) this.findViewById(R.id.create_new_player);
+            editText = (AutoCompleteTextView) this.findViewById(R.id.player_name);
             btnCreateNewPlayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    playerName = editText.getText().toString();
                     createNewPlayer();
                 }
             });
-        }
-        else {
-            List<String> playersFromBDDString = playerDAO.playersToString(playersFromBDD);
-            if(playersFromBDDString != null) {
-                for (String player : playersFromBDDString) {
-                    launchGame();
-                }
+        } else {
+
+            for(Player player :  playersFromBDD) {
+                //playerName = player.getName();
+
+                launchGame();
             }
 
         }
@@ -101,14 +121,14 @@ public class MainActivity extends AppCompatActivity
     private void createNewPlayer() {
         PlayerDAO playerDAO = new PlayerDAO(this);
         playerDAO.open();
-        Player player = new Player("Cécile", 0, 0, 10, 10);
-        //Player(String name, int nbWin, int nbLosses, int inventoryMaxSize, int creatureMaxSize)
+        Player player = new Player("Cecile", 0, 0, 10, 10);
         playerDAO.insertPlayer(player);
         launchGame();
     }
 
     private void launchGame() {
         setContentView(R.layout.activity_main);
+
         startFragment(Home.class);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -118,8 +138,9 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // Handle the camera action
+                Intent entityCatch = new Intent(getApplicationContext(), EntityCatch.class);
+                startActivity(entityCatch);
             }
         });
 
@@ -131,6 +152,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        playerNameTextView = (TextView) headerView.findViewById(R.id.display_player_name);
+        playerNameTextView.setText(playerName);
 
         createEntities();
     }
@@ -230,6 +255,8 @@ public class MainActivity extends AppCompatActivity
             Intent fight = new Intent(this, com.cecile_melay.barcodebattler_hubertmelay.ActivityFight.class);
             startActivity(fight);
 
+            startFragment(DisplayEquipmentAndPotions.class);
+
         } else if (id == R.id.nav_send) {
             Intent nfcFight = new Intent(this, com.cecile_melay.barcodebattler_hubertmelay.NFCFight.class);
             startActivity(nfcFight);
@@ -256,6 +283,34 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void startFragment(final Class<? extends MyFragment> fragmentClass) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MyFragment fragment = fragmentClass.newInstance();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_frame, fragment);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.addToBackStack(null);
+                    ft.commit();
+
+                    if (homeFragment == null) {
+                        homeFragment = fragment;
+                    } else {
+                        fragments.add(fragment);
+                    }
+
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void startDisplayCreatureFragment(final Class<? extends MyFragment> fragmentClass, String id) {
+        params = id;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

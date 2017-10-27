@@ -33,6 +33,10 @@ public class Creature {
         this.strength = (this.size + this.weight) / 2;
     }
 
+    /*public String pickImage() {
+
+    }*/
+
     public int getId() {
         return id;
     }

@@ -15,6 +15,7 @@ import com.cecile_melay.barcodebattler_hubertmelay.utils.Util;
 
 public abstract class MyFragment extends Fragment {
     protected ViewGroup contentView;
+    String strtext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

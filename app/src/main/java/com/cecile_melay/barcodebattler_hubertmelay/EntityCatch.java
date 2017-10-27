@@ -24,8 +24,8 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qrcode);
-        QRCScanner(this.ScannerView) ;
+        setContentView(R.layout.entity_catch);
+        QRCScanner(this.ScannerView);
     }
 
     public  void QRCScanner (View view){
@@ -221,5 +221,6 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
         CreatureDAO creatureDAO = new CreatureDAO(this);
         creatureDAO.open();
         creatureDAO.insertCreature(creature);
+        creatureDAO.close();
     }
 }
