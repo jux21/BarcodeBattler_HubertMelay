@@ -1,32 +1,27 @@
 package com.cecile_melay.barcodebattler_hubertmelay.fragments.views;
 
-        import android.support.v7.app.AlertDialog;
-        import android.support.v7.widget.Toolbar;
-        import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.ListView;
-        import android.widget.SimpleAdapter;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
-        import com.cecile_melay.barcodebattler_hubertmelay.MainActivity;
-        import com.cecile_melay.barcodebattler_hubertmelay.R;
-        import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
-        import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
-        import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
+import com.cecile_melay.barcodebattler_hubertmelay.MainActivity;
+import com.cecile_melay.barcodebattler_hubertmelay.R;
+import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
+import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 
-        import org.w3c.dom.Text;
-
-        import java.util.ArrayList;
-        import java.util.HashMap;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
- * Created by Utilisateur on 25/10/2017.
+ * Created by Utilisateur on 27/10/2017.
  */
 
-public class DisplayCreatures extends MyFragment {
+public class ChooseCreatureForLocalFight extends MyFragment {
 
     ListView listCreatures;
     private String name;
@@ -93,6 +88,8 @@ public class DisplayCreatures extends MyFragment {
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                     //on récupère la HashMap contenant les infos de notre item (titre, description, img)
                     HashMap<String, String> map = (HashMap<String, String>) listCreatures.getItemAtPosition(position);
+
+                    //Launch your activity fight
                     ((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayCreature.class, map.get("id"));
                 }
             });

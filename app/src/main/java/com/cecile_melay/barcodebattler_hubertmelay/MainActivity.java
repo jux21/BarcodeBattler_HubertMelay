@@ -249,15 +249,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             startFragment(DisplayEquipmentAndPotions.class);
 
-        } else if (id == R.id.nav_share) {
-            Intent fight = new Intent(this, com.cecile_melay.barcodebattler_hubertmelay.ActivityFight.class);
-            startActivity(fight);
+        } else if (id == R.id.nav_local_fight) {
 
-            startFragment(DisplayEquipmentAndPotions.class);
+            startFragment(ChooseCreatureForLocalFight.class);
 
-        } else if (id == R.id.nav_send) {
-            Intent nfcFight = new Intent(this, com.cecile_melay.barcodebattler_hubertmelay.NFCFight.class);
-            startActivity(nfcFight);
+        } else if (id == R.id.nav_nfc_fight) {
+
+            startFragment(ChooseCreatureForNFCFight.class);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
