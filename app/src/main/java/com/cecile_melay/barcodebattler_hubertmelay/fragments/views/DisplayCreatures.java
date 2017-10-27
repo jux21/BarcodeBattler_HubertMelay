@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Utilisateur on 25/10/2017.
@@ -33,6 +35,7 @@ public class DisplayCreatures extends MyFragment {
     private int hp;
     private String type;
     private  int id;
+    private int imagePath;
 
     @Override
     protected int getLayoutId() {return R.layout.display_creatures;}
@@ -66,15 +69,28 @@ public class DisplayCreatures extends MyFragment {
                 name = creature.getName();
                 hp = creature.getHp();
                 type = creature.getType();
+                imagePath = creature.getImagePath();
                 //Création d'une HashMap pour insérer les informations du premier item de notre listView
                 map = new HashMap<String, String>();
                 //on insère un élément titre que l'on récupérera dans le textView titre créé dans le fichier affichageitem.xml
                 map.put("id", ""+id);
                 map.put("titre", name);
+
                 //on insère la référence à l'image (convertit en String car normalement c'est un int) que l'on récupérera dans l'imageView créé dans le fichier affichageitem.xml
-                map.put("img", String.valueOf(R.mipmap.ic_launcher));
+                //map.put("img", String.valueOf(R.mipmap.creature_alien_1));
+                map.put("img", String.valueOf(imagePath));
+
+                /*ImageView img=(ImageView)findViewById(R.id.imageView1);
+                String[] imageArray = {"1", "2"};
+                Random rand = new Random();
+
+                int rndInt = rand.nextInt(1) + 1;
+                int resID = getResources().getIdentifier(imageArray[rndInt], "drawable",  getContext().getPackageName());
+                img.setImageResource(resID);*/
+
+
                 //on insère un élément description que l'on récupérera dans le textView description créé dans le fichier affichageitem.xml
-                map.put("description", "PV :"+ hp + "Type :" + type);
+                map.put("description", "PV :"+ hp + " Type :" + type);
                 //enfin on ajoute cette hashMap dans la arrayList
                 listItem.add(map);
             }

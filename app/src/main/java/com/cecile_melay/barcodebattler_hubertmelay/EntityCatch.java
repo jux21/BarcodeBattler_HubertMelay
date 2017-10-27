@@ -190,7 +190,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
                 type = "plante";
                 break;
             case 5:
-                type = "ténébre";
+                type = "air";
                 break;
             case 6:
                 type = "dragon";
@@ -199,10 +199,10 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
                 type = "insecte";
                 break;
             case 8:
-                type = "combat";
+                type = "terre";
                 break;
             case 9:
-                type = "poison";
+                type = "eau";
                 break;
         }
         return type;

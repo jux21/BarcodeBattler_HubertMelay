@@ -1,5 +1,7 @@
 package com.cecile_melay.barcodebattler_hubertmelay.entities;
 
+import com.cecile_melay.barcodebattler_hubertmelay.R;
+
 /**
  * Created by Utilisateur on 24/10/2017.
  */
@@ -16,7 +18,7 @@ public class Creature {
     private int speed;  // Calculated with size - weight
     private int strength;  // Calculated with (size + weight) / 2
     private int defense;
-    private int non;
+    private int imagePath;
 
 
     public Creature() {}
@@ -31,11 +33,51 @@ public class Creature {
         this.defense = defense;
         this.speed = this.size - this.weight;
         this.strength = (this.size + this.weight) / 2;
+        this.imagePath = pickImage(this.type);
     }
 
-    /*public String pickImage() {
+    public int pickImage(String type) {
+        int imagePath;
+        switch(type) {
+            case "feu":
+                imagePath = R.mipmap.creature_human_1;
+                break;
+            case "glace":
+                imagePath = R.mipmap.creature_alien_1;
+                break;
+            case "électrique":
+                imagePath = R.mipmap.creature_human_1;
+                break;
+            case "roche":
+                imagePath = R.mipmap.creature_alien_1;
+                break;
+            case "plante":
+                imagePath = R.mipmap.creature_human_1;
+                break;
+            case "air":
+                imagePath = R.mipmap.creature_alien_1;
+                break;
+            case "dragon":
+                imagePath = R.mipmap.creature_human_1;
+                break;
+            case "insecte":
+                imagePath = R.mipmap.creature_alien_1;
+                break;
+            case "terre":
+                imagePath = R.mipmap.creature_human_1;
+                break;
+            case "eau":
+                imagePath = R.mipmap.creature_alien_1;
+                break;
+            default:
+                imagePath = R.mipmap.creature_human_1;
+                break;
 
-    }*/
+        }
+        return imagePath;
+    }
+
+    //}
 
     public int getId() {
         return id;
@@ -122,5 +164,12 @@ public class Creature {
                 inventory_max_size + "\nSize : " + size + "\nWeight : " + weight + "\nSpeed : " + speed + "\nType : "
                 + type + "\nStrength: " + strength + "\nDefense: " + defense;
     }
-    
+
+    public int getImagePath() {
+        return pickImage(this.type);
+    }
+
+    public void setImagePath(int imagePath) {
+        this.imagePath = imagePath;
+    }
 }
