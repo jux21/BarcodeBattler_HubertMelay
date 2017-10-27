@@ -2,7 +2,11 @@ package com.cecile_melay.barcodebattler_hubertmelay;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
@@ -33,9 +38,7 @@ import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Equipment;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Player;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
-import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayCreatures;
-import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayEquipmentAndPotions;
-import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.Home;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,15 +46,26 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Toolbar toolbar;
-    Button btnCreateNewPlayer;
+    private Toolbar toolbar;
+    private Button btnCreateNewPlayer;
+    private TextView textViewNamePlayer;
     private List<MyFragment> fragments = new ArrayList<>();
     private MyFragment homeFragment;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
+    private static final int MY_PERMISSIONS_NFC = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        // Boite de dialogue pour demander la permission camera et NFC
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.NFC) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.NFC}, MY_PERMISSIONS_NFC);
+        }
 
         PlayerDAO playerDAO = new PlayerDAO(this);
         playerDAO.open();
@@ -76,10 +90,6 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        // Boite de dialogue pour demander la permission camera
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
-        }
 
         //Creature creatureFromBDD = creatureDAO.getCreatureWithName("Jux");
         //if(creatureFromBDD != null) {
@@ -92,6 +102,7 @@ public class MainActivity extends AppCompatActivity
         PlayerDAO playerDAO = new PlayerDAO(this);
         playerDAO.open();
         Player player = new Player("Cécile", 0, 0, 10, 10);
+        //Player(String name, int nbWin, int nbLosses, int inventoryMaxSize, int creatureMaxSize)
         playerDAO.insertPlayer(player);
         launchGame();
     }
@@ -101,6 +112,7 @@ public class MainActivity extends AppCompatActivity
         startFragment(Home.class);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -121,12 +133,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         createEntities();
-
-        // Boite de dialogue pour demander la permission camera
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
-        }
-
     }
 
     private void createEntities() {
@@ -208,7 +214,6 @@ public class MainActivity extends AppCompatActivity
             startFragment(Home.class);
 
         } else if (id == R.id.nav_entity_catch) {
-
             // Handle the camera action
             Intent entityCatch = new Intent(this, EntityCatch.class);
             startActivity(entityCatch);
@@ -222,15 +227,19 @@ public class MainActivity extends AppCompatActivity
             startFragment(DisplayEquipmentAndPotions.class);
 
         } else if (id == R.id.nav_share) {
+            Intent fight = new Intent(this, com.cecile_melay.barcodebattler_hubertmelay.ActivityFight.class);
+            startActivity(fight);
 
         } else if (id == R.id.nav_send) {
-
+            Intent nfcFight = new Intent(this, com.cecile_melay.barcodebattler_hubertmelay.NFCFight.class);
+            startActivity(nfcFight);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     public void setNavTitle(String title) {
         this.toolbar.setTitle(title);
@@ -272,4 +281,5 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
 }

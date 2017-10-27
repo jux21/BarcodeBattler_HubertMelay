@@ -25,13 +25,9 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-
-                <data android:mimeType="application/vnd.com.example.android.beam" />
             </intent-filter>
         </activity>
         <activity
