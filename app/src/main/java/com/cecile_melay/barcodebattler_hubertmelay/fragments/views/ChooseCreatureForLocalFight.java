@@ -90,7 +90,7 @@ public class ChooseCreatureForLocalFight extends MyFragment {
                     HashMap<String, String> map = (HashMap<String, String>) listCreatures.getItemAtPosition(position);
 
                     //Launch your activity fight
-                    ((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayCreature.class, map.get("id"));
+                    ((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayLocalFight.class, map.get("id"));
                 }
             });
 
