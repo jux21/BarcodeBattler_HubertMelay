@@ -1,5 +1,7 @@
 package com.cecile_melay.barcodebattler_hubertmelay.fragments.views;
 
+import android.content.pm.ActivityInfo;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -38,6 +40,9 @@ public class DisplayEquipmentAndPotions extends MyFragment {
 
     @Override
     protected void init() {
+
+        getActivity().setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         listBag = (ListView)contentView.findViewById(R.id.bagContent);
 
         EquipmentDAO equipmentDAO = new EquipmentDAO(this.getContext());

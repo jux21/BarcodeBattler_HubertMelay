@@ -6,12 +6,12 @@ package com.cecile_melay.barcodebattler_hubertmelay.entities;
 
 public class Player {
 
-    private  String name;
-    private int level;
+    private int id;
+    private String name;
     private int nbWin;
     private int nbLosses;
-    private int inventoryMaxSize;
-    private int creatureMaxSize;
+    private int inventory_max_size;
+    private int creature_max_size;
 
     public Player() {}
 
@@ -19,11 +19,9 @@ public class Player {
         this.name = name;
         this.nbWin = nbWin;
         this.nbLosses = nbLosses;
-        this.inventoryMaxSize = inventoryMaxSize;
-        this.creatureMaxSize = creatureMaxSize;
+        this.inventory_max_size = inventoryMaxSize;
+        this.creature_max_size = creatureMaxSize;
     }
-
-    private int id;
 
     public int getId() {
         return id;
@@ -42,11 +40,11 @@ public class Player {
     }
 
     public void setInventoryMaxSize(int inventoryMaxSize) {
-        this.inventoryMaxSize = inventoryMaxSize;
+        this.inventory_max_size = inventoryMaxSize;
     }
 
     public void setCreatureMaxSize(int creatureMaxSize) {
-        this.creatureMaxSize = creatureMaxSize;
+        this.creature_max_size = creatureMaxSize;
     }
 
     public int getNbWin() {
@@ -58,26 +56,26 @@ public class Player {
     }
 
     public int getInventoryMaxSize() {
-        return inventoryMaxSize;
+        return inventory_max_size;
     }
 
     public int getCreatureMaxSize() {
-        return creatureMaxSize;
+        return creature_max_size;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getLevel() {
+    /*public int getLevel() {
         return level;
-    }
+    }*/
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setLevel(int level) {
+    /*public void setLevel(int level) {
         this.level = level;
-    }
+    }*/
 }

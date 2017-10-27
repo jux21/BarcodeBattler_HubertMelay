@@ -13,7 +13,7 @@
         android:textAlignment="center"
         android:textSize="30dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Hello"
         android:id="@+id/txt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
