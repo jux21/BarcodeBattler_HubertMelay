@@ -23,14 +23,13 @@
     <item android:title="Combat">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_local_fight"
                 android:icon="@android:drawable/ic_media_play"
                 android:title="Local" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_nfc_fight"
                 android:icon="@android:drawable/ic_media_ff"
                 android:title="Réseau" />
         </menu>
     </item>
-
 </menu>

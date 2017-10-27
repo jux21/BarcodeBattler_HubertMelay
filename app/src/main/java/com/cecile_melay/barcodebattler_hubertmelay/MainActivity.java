@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         playerDAO.open();
         List<Player> playersFromBDD = playerDAO.getAllPlayers();
 
-        if(playersFromBDD == null || playerName == "") {
+        if(playersFromBDD.isEmpty()) {
             setContentView(R.layout.create_new_player);
             btnCreateNewPlayer = (Button) this.findViewById(R.id.create_new_player);
             editText = (AutoCompleteTextView) this.findViewById(R.id.player_name);
@@ -101,13 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
         } else {
-
-            for(Player player :  playersFromBDD) {
-                //playerName = player.getName();
-
-                launchGame();
-            }
-
+            launchGame();
         }
 
 
@@ -153,9 +147,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        PlayerDAO playerDAO = new PlayerDAO(this);
+        playerDAO.open();
+        List<Player> playersFromBDD = playerDAO.getAllPlayers();
+
         View headerView = navigationView.getHeaderView(0);
         playerNameTextView = (TextView) headerView.findViewById(R.id.display_player_name);
-        playerNameTextView.setText(playerName);
+        playerNameTextView.setText(playersFromBDD.get(0).getName());
 
         createEntities();
     }
@@ -251,15 +249,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             startFragment(DisplayEquipmentAndPotions.class);
 
-        } else if (id == R.id.nav_share) {
-            Intent fight = new Intent(this, com.cecile_melay.barcodebattler_hubertmelay.ActivityFight.class);
-            startActivity(fight);
+        } else if (id == R.id.nav_local_fight) {
 
-            startFragment(DisplayEquipmentAndPotions.class);
+            startFragment(ChooseCreatureForLocalFight.class);
 
-        } else if (id == R.id.nav_send) {
-            Intent nfcFight = new Intent(this, com.cecile_melay.barcodebattler_hubertmelay.NFCFight.class);
-            startActivity(nfcFight);
+        } else if (id == R.id.nav_nfc_fight) {
+
+            startFragment(ChooseCreatureForNFCFight.class);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -311,30 +307,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void startDisplayCreatureFragment(final Class<? extends MyFragment> fragmentClass, String id) {
         params = id;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    MyFragment fragment = fragmentClass.newInstance();
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.fragment_frame, fragment);
-                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.addToBackStack(null);
-                    ft.commit();
-
-                    if (homeFragment == null) {
-                        homeFragment = fragment;
-                    } else {
-                        fragments.add(fragment);
-                    }
-
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        startFragment(fragmentClass);
     }
 
 }

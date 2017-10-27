@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.DatabaseHandler;
+import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Player;
 
 import java.util.ArrayList;
@@ -86,6 +87,47 @@ public class PlayerDAO {
     public int removePlayerWithID(int id){
         //Suppression d'une créature de la BDD grâce à l'ID
         return bdd.delete(PLAYER_TABLE_NAME, COL_PLAYER_ID + " = " +id, null);
+    }
+
+    public Player getPlayerWithName(String name){
+        //Récupère dans un Cursor les valeurs correspondant à une créature contenue dans la BDD
+        Cursor c = bdd.query(PLAYER_TABLE_NAME,
+                new String[] {COL_PLAYER_ID, COL_PLAYER_NAME, COL_PLAYER_NB_WINS, COL_PLAYER_NB_LOSSES, COL_PLAYER_INVENTORY_MAX_SIZE, COL_PLAYER_CREATURE_MAX_SIZE},
+                COL_PLAYER_NAME + " LIKE \"" + name +"\"", null, null, null, null);
+        return cursorToPlayer(c);
+    }
+
+    public Player getPlayerWithID(String id){
+        //Récupère dans un Cursor les valeurs correspondant à une créature contenue dans la BDD
+        Cursor c = bdd.query(PLAYER_TABLE_NAME,
+                new String[] {COL_PLAYER_ID, COL_PLAYER_NAME, COL_PLAYER_NB_WINS, COL_PLAYER_NB_LOSSES, COL_PLAYER_INVENTORY_MAX_SIZE, COL_PLAYER_CREATURE_MAX_SIZE},
+                COL_PLAYER_ID + " LIKE \"" + id +"\"", null, null, null, null);
+        return cursorToPlayer(c);
+    }
+
+    //Cette méthode permet de convertir un cursor en un Creature
+    private Player cursorToPlayer(Cursor c){
+        //si aucun élément n'a été retourné dans la requête, on renvoie null
+        if (c.getCount() == 0)
+            return null;
+
+        //Sinon on se place sur le premier élément
+        c.moveToFirst();
+        //On créé une Creature
+        Player player = new Player();
+        //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
+        player.setId(c.getInt(NUM_COL_PLAYER_ID));
+        player.setName(c.getString(NUM_COL_PLAYER_NAME));
+        player.setNbWin(c.getInt(NUM_COL_PLAYER_WINS));
+        player.setNbLosses(c.getInt(NUM_COL_PLAYER_LOSSES));
+        player.setInventoryMaxSize(c.getInt(NUM_COL_PLAYER_INVENTORY_MAX_SIZE));
+        player.setCreatureMaxSize(c.getInt(NUM_COL_PLAYER_CREATURE_MAX_SIZE));
+
+        //On ferme le cursor
+        c.close();
+
+        //On retourne le livre
+        return player;
     }
 
     public List<Player> getAllPlayers(){

@@ -1,14 +1,9 @@
 package com.cecile_melay.barcodebattler_hubertmelay.fragments.views;
 
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.MainActivity;
@@ -17,28 +12,26 @@ import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 /**
- * Created by Utilisateur on 25/10/2017.
+ * Created by Utilisateur on 27/10/2017.
  */
 
-public class DisplayCreatures extends MyFragment {
+public class ChooseCreatureForNFCFight extends MyFragment {
 
     ListView listCreatures;
     private String name;
     private int hp;
     private String type;
-    private  int id;
-    private int imagePath;
+    private int id;
 
     @Override
-    protected int getLayoutId() {return R.layout.display_creatures;}
+    protected int getLayoutId() {
+        return R.layout.display_creatures;
+    }
 
     @Override
     protected String getTitle() {
@@ -47,14 +40,13 @@ public class DisplayCreatures extends MyFragment {
 
     @Override
     protected void init() {
-        listCreatures = (ListView)contentView.findViewById(R.id.listCreatures);
+        listCreatures = (ListView) contentView.findViewById(R.id.listCreatures);
         CreatureDAO creatureDAO = new CreatureDAO(this.getContext());
         creatureDAO.open();
         List<Creature> creaturesFromBDD = creatureDAO.getAllCreature();
-        if(creaturesFromBDD == null) {
+        if (creaturesFromBDD == null) {
             Toast.makeText(this.getContext(), "No creatures", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             List<String> creaturesFromBDDString = creatureDAO.creaturesToString(creaturesFromBDD);
 
             //Création de la ArrayList qui nous permettra de remplire la listView
@@ -69,35 +61,22 @@ public class DisplayCreatures extends MyFragment {
                 name = creature.getName();
                 hp = creature.getHp();
                 type = creature.getType();
-                imagePath = creature.getImagePath();
                 //Création d'une HashMap pour insérer les informations du premier item de notre listView
                 map = new HashMap<String, String>();
                 //on insère un élément titre que l'on récupérera dans le textView titre créé dans le fichier affichageitem.xml
-                map.put("id", ""+id);
+                map.put("id", "" + id);
                 map.put("titre", name);
-
                 //on insère la référence à l'image (convertit en String car normalement c'est un int) que l'on récupérera dans l'imageView créé dans le fichier affichageitem.xml
-                //map.put("img", String.valueOf(R.mipmap.creature_alien_1));
-                map.put("img", String.valueOf(imagePath));
-
-                /*ImageView img=(ImageView)findViewById(R.id.imageView1);
-                String[] imageArray = {"1", "2"};
-                Random rand = new Random();
-
-                int rndInt = rand.nextInt(1) + 1;
-                int resID = getResources().getIdentifier(imageArray[rndInt], "drawable",  getContext().getPackageName());
-                img.setImageResource(resID);*/
-
-
+                map.put("img", String.valueOf(R.mipmap.ic_launcher));
                 //on insère un élément description que l'on récupérera dans le textView description créé dans le fichier affichageitem.xml
-                map.put("description", "PV :"+ hp + " Type :" + type);
+                map.put("description", "PV :" + hp + "Type :" + type);
                 //enfin on ajoute cette hashMap dans la arrayList
                 listItem.add(map);
             }
 
             //Création d'un SimpleAdapter qui se chargera de mettre les items présent dans notre list (listItem) dans la vue affichageitem
-            SimpleAdapter mSchedule = new SimpleAdapter (this.getActivity().getBaseContext(), listItem, R.layout.display_entities_in_list,
-                    new String[] {"img", "titre", "description"}, new int[] {R.id.img, R.id.titre, R.id.description});
+            SimpleAdapter mSchedule = new SimpleAdapter(this.getActivity().getBaseContext(), listItem, R.layout.display_entities_in_list,
+                    new String[]{"img", "titre", "description"}, new int[]{R.id.img, R.id.titre, R.id.description});
 
             //On attribut à notre listView l'adapter que l'on vient de créer
             listCreatures.setAdapter(mSchedule);
@@ -109,6 +88,8 @@ public class DisplayCreatures extends MyFragment {
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                     //on récupère la HashMap contenant les infos de notre item (titre, description, img)
                     HashMap<String, String> map = (HashMap<String, String>) listCreatures.getItemAtPosition(position);
+
+                    //Launch your activity fight
                     ((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayCreature.class, map.get("id"));
                 }
             });
