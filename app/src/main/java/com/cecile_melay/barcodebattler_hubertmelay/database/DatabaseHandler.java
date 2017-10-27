@@ -100,8 +100,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     PLAYER_NAME + " TEXT, " +
                     PLAYER_NB_WINS + " INTEGER, " +
                     PLAYER_NB_LOSSES + " INTEGER, "+
-                    PLAYER_INVENTORY_MAX_SIZE + "INTEGER, " +
-                    PLAYER_CREATURE_MAX_SIZE + "INTEGER );";
+                    PLAYER_INVENTORY_MAX_SIZE + " INTEGER, " +
+                    PLAYER_CREATURE_MAX_SIZE + " INTEGER );";
     public static final String PLAYER_TABLE_DROP = "DROP TABLE IF EXISTS " + PLAYER_TABLE_NAME + ";";
 
 
