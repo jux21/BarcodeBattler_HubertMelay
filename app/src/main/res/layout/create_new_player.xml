@@ -1,37 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-tools:context="com.cecile_melay.barcodebattler_hubertmelay.MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical" android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="#fff"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/ll1"
         android:layout_width="match_parent"
-        android:textAlignment="center"
-        android:textSize="30dp"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/txt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal">
 
-    <EditText
-        android:id="@+id/editText"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="BarCode \n Battler"
+            android:id="@+id/textView2"
+            android:textSize="30dp"
+            android:textColor="#3f51b5" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Nom de joueur" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal">
+        <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:visibility="gone" />
+        <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <Button
-        android:id="@+id/create_new_player"
+                <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="vertical">
+
+                    <AutoCompleteTextView android:id="@+id/player_name" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:hint="Pseudo du joueur"
+                        android:inputType="textEmailAddress" android:maxLines="1"
+                        android:singleLine="true"
+                        android:layout_marginBottom="10dp"
+                        android:textColorHint="#999"
+                        android:textColor="#333" />
+
+                    <Button android:id="@+id/create_new_player" style="?android:textAppearanceSmall"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp" android:text="Jouer"
+                        android:textStyle="bold"
+                        android:textColor="#fff"
+                        android:background="#3f51b5" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Jouer" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="bottom|center_horizontal">
 
-</android.support.v7.widget.LinearLayoutCompat>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MIAGE 2017/2018"
+            android:id="@+id/project"
+            android:autoLink="web"
+            android:textColor="#333" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Julien Hubert Melay Cécile "
+            android:id="@+id/copyright"
+            android:autoLink="web"
+            android:textColor="#333" />
+    </LinearLayout>
+</LinearLayout>

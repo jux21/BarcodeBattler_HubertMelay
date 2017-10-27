@@ -115,6 +115,15 @@ public class CreatureDAO {
         return cursorToCreature(c);
     }
 
+    public Creature getCreatureWithID(String id){
+        //Récupère dans un Cursor les valeurs correspondant à une créature contenue dans la BDD
+        Cursor c = bdd.query(CREATURE_TABLE_NAME,
+                new String[] {COL_CREATURE_ID, COL_CREATURE_NAME, COL_CREATURE_HP,COL_CREATURE_TYPE, COL_CREATURE_INVENTORY_MAX_SIZE,
+                        COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE},
+                COL_CREATURE_ID + " LIKE \"" + id +"\"", null, null, null, null);
+        return cursorToCreature(c);
+    }
+
     public List<Creature> getAllCreature(){
         Cursor cursor = bdd.rawQuery("select * from "+CREATURE_TABLE_NAME,null);
         return cursorToCreatures(cursor);
