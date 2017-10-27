@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cecile_melay.barcodebattler_hubertmelay.MainActivity;
@@ -44,6 +45,22 @@ public class DisplayCreature extends MyFragment {
         TextView creatureName = (TextView) this.contentView.findViewById(R.id.creature_name);
         creatureName.setText(creature.getName());
 
+        TextView cartTitle = (TextView) this.contentView.findViewById(R.id.creature_title);
+        cartTitle.setText(creature.getName());
+
+        ImageView cardImage = (ImageView) this.contentView.findViewById(R.id.card_image);
+        cardImage.setImageResource(creature.getImagePath());
+
+        TextView creatureDetails = (TextView) this.contentView.findViewById(R.id.creature_details);
+        creatureDetails.setText("PV : " + creature.getHp()
+            + "\nTaille :" + creature.getSize()
+            + "\nType :" + creature.getType()
+            + "\nType :" + creature.getType()
+            + "\nInventaire :" + creature.getInventory_max_size()
+            + "\nDéfense :" + creature.getDefense()
+            + "\nRapidité :" + creature.getSpeed()
+            + "\nForce :" + creature.getStrength()
+            + "\nPoid :" + creature.getWeight());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.cecile_melay.barcodebattler_hubertmelay.fragments.views;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
@@ -7,6 +8,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.cecile_melay.barcodebattler_hubertmelay.ActivityFight;
+import com.cecile_melay.barcodebattler_hubertmelay.EntityCatch;
 import com.cecile_melay.barcodebattler_hubertmelay.MainActivity;
 import com.cecile_melay.barcodebattler_hubertmelay.R;
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
@@ -90,7 +93,10 @@ public class ChooseCreatureForLocalFight extends MyFragment {
                     HashMap<String, String> map = (HashMap<String, String>) listCreatures.getItemAtPosition(position);
 
                     //Launch your activity fight
-                    ((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayLocalFight.class, map.get("id"));
+                    //((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayLocalFight.class, map.get("id"));
+                    //((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayLocalFight.class, map.get("id"));
+                    Intent entityCatch = new Intent(getActivity(), ActivityFight.class);
+                    startActivity(entityCatch);
                 }
             });
 
