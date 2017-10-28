@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         playerDAO.open();
         List<Player> playersFromBDD = playerDAO.getAllPlayers();
 
-        if(playersFromBDD.isEmpty()) {
+        if(playersFromBDD == null) {
             setContentView(R.layout.create_new_player);
             btnCreateNewPlayer = (Button) this.findViewById(R.id.create_new_player);
             editText = (AutoCompleteTextView) this.findViewById(R.id.player_name);
@@ -255,7 +255,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_nfc_fight) {
 
-            startFragment(ChooseCreatureForNFCFight.class);
+            Intent entityCatch = new Intent(this, NFCFight.class);
+            startActivity(entityCatch);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
