@@ -40,37 +40,37 @@ public class Creature {
         int imagePath;
         switch(type) {
             case "feu":
-                imagePath = R.mipmap.creature_human_1;
+                imagePath = R.mipmap.creature_fire_1;
                 break;
             case "glace":
-                imagePath = R.mipmap.creature_alien_1;
+                imagePath = R.mipmap.creature_ice_1;
                 break;
             case "électrique":
-                imagePath = R.mipmap.creature_human_1;
+                imagePath = R.mipmap.creature_elec_1;
                 break;
             case "roche":
-                imagePath = R.mipmap.creature_alien_1;
+                imagePath = R.mipmap.creature_rock_1;
                 break;
             case "plante":
-                imagePath = R.mipmap.creature_human_1;
+                imagePath = R.mipmap.creature_grass_1;;
                 break;
             case "air":
-                imagePath = R.mipmap.creature_alien_1;
+                imagePath = R.mipmap.creature_cat;
                 break;
             case "dragon":
-                imagePath = R.mipmap.creature_human_1;
+                imagePath = R.mipmap.creature_dragon_1;
                 break;
             case "insecte":
-                imagePath = R.mipmap.creature_alien_1;
+                imagePath = R.mipmap.creature_insect_1;
                 break;
             case "terre":
-                imagePath = R.mipmap.creature_human_1;
+                imagePath = R.mipmap.creature_earth_1;
                 break;
             case "eau":
-                imagePath = R.mipmap.creature_alien_1;
+                imagePath = R.mipmap.creature_water_1;
                 break;
             default:
-                imagePath = R.mipmap.creature_human_1;
+                imagePath = R.mipmap.creature_cat;
                 break;
 
         }

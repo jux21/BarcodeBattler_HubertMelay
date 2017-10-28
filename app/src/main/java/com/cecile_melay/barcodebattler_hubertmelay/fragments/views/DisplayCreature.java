@@ -53,14 +53,13 @@ public class DisplayCreature extends MyFragment {
 
         TextView creatureDetails = (TextView) this.contentView.findViewById(R.id.creature_details);
         creatureDetails.setText("PV : " + creature.getHp()
-            + "\nTaille :" + creature.getSize()
-            + "\nType :" + creature.getType()
-            + "\nType :" + creature.getType()
-            + "\nInventaire :" + creature.getInventory_max_size()
-            + "\nDéfense :" + creature.getDefense()
-            + "\nRapidité :" + creature.getSpeed()
-            + "\nForce :" + creature.getStrength()
-            + "\nPoid :" + creature.getWeight());
+            + "\nTaille : " + creature.getSize()
+            + "\nType : " + creature.getType()
+            + "\nInventaire : " + creature.getInventory_max_size()
+            + "\nDéfense : " + creature.getDefense()
+            + "\nRapidité : " + creature.getSpeed()
+            + "\nForce : " + creature.getStrength()
+            + "\nPoid : " + creature.getWeight());
     }
 
     @Override

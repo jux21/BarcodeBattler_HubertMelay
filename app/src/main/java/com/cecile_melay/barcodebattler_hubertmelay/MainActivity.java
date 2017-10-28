@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         playerNameTextView = (TextView) headerView.findViewById(R.id.display_player_name);
         playerNameTextView.setText(playersFromBDD.get(0).getName());
 
-        createEntities();
+        //createEntities();
     }
 
     private void createEntities() {

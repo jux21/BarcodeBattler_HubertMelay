@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
@@ -60,7 +61,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
     }
 
     private void displayAlertDialog(String message, String barCodeFormat, String result) {
-
+        ScannerView.stopCamera();
         AlertDialog alterDialog = new AlertDialog.Builder(this)
             .setTitle(message)
             .setMessage(result+  " - " + barCodeFormat +
@@ -69,6 +70,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
+                    ScannerView.startCamera();
                 }
             })
             .setNegativeButton("Non",new DialogInterface.OnClickListener() {
@@ -84,6 +86,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
     private String createEntity(String barCodeFormat, String result) {
         String message;
         if (result != null) {
+
             switch (barCodeFormat.toUpperCase()) {
 
                 //code bar utilisé dans le commerce et l'industrie
@@ -112,6 +115,18 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
 
                 //code bar QR Code
                 case "CODE_QR":
+                    message = "Félicitation, équipement capturé !";
+                    createEquipment(result);
+                    break;
+
+                //code bar USA
+                case "UPC_A":
+                    message = "Félicitation, équipement capturé !";
+                    createEquipment(result);
+                    break;
+
+                //code bar transport/distribution
+                case "CODE_128":
                     message = "Félicitation, équipement capturé !";
                     createEquipment(result);
                     break;

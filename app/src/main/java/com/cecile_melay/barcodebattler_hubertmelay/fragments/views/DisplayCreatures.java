@@ -31,6 +31,7 @@ import java.util.Random;
 public class DisplayCreatures extends MyFragment {
 
     ListView listCreatures;
+    private TextView numberOfCreatures;
     private String name;
     private int hp;
     private String type;
@@ -48,21 +49,23 @@ public class DisplayCreatures extends MyFragment {
     @Override
     protected void init() {
         listCreatures = (ListView)contentView.findViewById(R.id.listCreatures);
+        numberOfCreatures = (TextView)contentView.findViewById(R.id.textView2);
         CreatureDAO creatureDAO = new CreatureDAO(this.getContext());
         creatureDAO.open();
         List<Creature> creaturesFromBDD = creatureDAO.getAllCreature();
         if(creaturesFromBDD == null) {
             Toast.makeText(this.getContext(), "No creatures", Toast.LENGTH_LONG).show();
+            numberOfCreatures.setText("No creatures");
         }
         else {
             List<String> creaturesFromBDDString = creatureDAO.creaturesToString(creaturesFromBDD);
+            numberOfCreatures.setText(creaturesFromBDD.size()+" creatures");
 
             //Création de la ArrayList qui nous permettra de remplire la listView
             ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
             //On déclare la HashMap qui contiendra les informations pour un item
             HashMap<String, String> map;
-
 
             for (Creature creature : creaturesFromBDD) {
                 id = creature.getId();

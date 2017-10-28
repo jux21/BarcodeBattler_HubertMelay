@@ -63,15 +63,15 @@ public class DisplayEquipmentAndPotions extends MyFragment {
         }
         else {
             listPotion = potionDAO.potionToString(potionsFromBDD);
+            // On combine les arrays et on les affiche dans la listView
+            listEquipment.addAll(listPotion);
+            arrayAdapterBag = new ArrayAdapter<String>(
+                    this.getContext(),
+                    android.R.layout.simple_list_item_1,
+                    listEquipment);
+            listBag.setAdapter(arrayAdapterBag);
         }
 
-        // On combine les arrays et on les affiche dans la listView
-        listEquipment.addAll(listPotion);
-        arrayAdapterBag = new ArrayAdapter<String>(
-                this.getContext(),
-                android.R.layout.simple_list_item_1,
-                listEquipment);
-        listBag.setAdapter(arrayAdapterBag);
     }
 
 }
