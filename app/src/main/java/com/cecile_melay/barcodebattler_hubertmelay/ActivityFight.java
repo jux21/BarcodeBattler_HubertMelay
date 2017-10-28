@@ -8,6 +8,6 @@ public class ActivityFight extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fight);
+        setContentView(R.layout.display_fight);
     }
 }

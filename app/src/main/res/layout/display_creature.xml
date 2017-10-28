@@ -21,4 +21,94 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/md_keylines"
+        android:layout_marginLeft="@dimen/md_keylines"
+        android:layout_marginRight="@dimen/md_keylines"
+        android:foreground="?attr/selectableItemBackground">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/card_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_image_height"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/creature_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_title_height"
+                android:layout_alignBottom="@+id/card_image"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:text="@string/item_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/dark_grey" />
+
+            <TextView
+                android:id="@+id/creature_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/card_image"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:layout_marginRight="@dimen/md_keylines"
+                android:layout_marginTop="@dimen/md_keylines"
+                android:ellipsize="none"
+                android:paddingBottom="20dp"
+                android:singleLine="false"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+        deserunt mollit anim id est laborum."
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/article_subheading"
+                android:layout_above="@+id/action_add_equip" />
+
+            <Button
+                android:id="@+id/action_add_equip"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Equiper"
+                android:textColor="?attr/colorPrimary"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/action_add_potion"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Libérer"
+                android:textColor="?attr/colorPrimary"
+                android:layout_alignParentBottom="true"
+                android:layout_alignEnd="@+id/creature_details" />
+
+            <Button
+                android:id="@+id/action_free"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/action_add_equip"
+                android:text="Potion"
+                android:textColor="?attr/colorPrimary" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
 </android.support.v7.widget.LinearLayoutCompat>
