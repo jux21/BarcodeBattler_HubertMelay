@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     Button btnCreateNewPlayer;
     TextView playerNameTextView;
+    TextView playerDetailsTextView;
     AutoCompleteTextView editText;
     String playerName = "";
     private List<MyFragment> fragments = new ArrayList<>();
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onClick(View v) {
                     playerName = editText.getText().toString();
-                    createNewPlayer();
+                    createNewPlayer(playerName);
                 }
             });
         } else {
@@ -112,10 +113,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //}
     }
 
-    private void createNewPlayer() {
+    private void createNewPlayer(String playerName) {
         PlayerDAO playerDAO = new PlayerDAO(this);
         playerDAO.open();
-        Player player = new Player("Cecile", 0, 0, 10, 10);
+        Player player = new Player(playerName, 0, 0, 10, 10);
         playerDAO.insertPlayer(player);
         launchGame();
     }
@@ -147,7 +148,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         playerNameTextView = (TextView) headerView.findViewById(R.id.display_player_name);
         playerNameTextView.setText(playersFromBDD.get(0).getName());
 
+        playerDetailsTextView = (TextView) headerView.findViewById(R.id.display_player_details);
+        playerDetailsTextView.setText("Niveau : "+(playersFromBDD.get(0).getNbLosses() - playersFromBDD.get(0).getNbWin()));
+
         //createEntities();
+
+       /* Intent iin= getIntent();
+        Bundle b = iin.getExtras();
+
+        //Si entitycatch start this mainactivity, display the details of the creature captured
+        if(b!=null) {
+            String j = String.valueOf(b.get("position"));
+            Log.d("YOLOOO", j);
+            //startDisplayCreatureFragment(DisplayCreature.class, j);
+        }*/
     }
 
     private void createEntities() {

@@ -3,6 +3,7 @@ package com.cecile_melay.barcodebattler_hubertmelay;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
+import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayCreature;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -20,7 +22,9 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  */
 
 public class EntityCatch extends Activity implements ZXingScannerView.ResultHandler {
+
     private ZXingScannerView ScannerView;
+    Creature creature;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +68,9 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
         ScannerView.stopCamera();
         AlertDialog alterDialog = new AlertDialog.Builder(this)
             .setTitle(message)
-            .setMessage(result+  " - " + barCodeFormat +
-                    "\n\nSouhaitez vous capturer d'autres entités ?")
+            //.setMessage(result+  " - " + barCodeFormat +
+            .setMessage("Nom : "+creature.getName()+" PV :"+creature.getHp()+" Type :"+creature.getType()+
+                    "\n\nCapturer d'autres entités ?")
             .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -76,7 +81,8 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
             .setNegativeButton("Non",new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
                 }
             })
             .create();
@@ -182,6 +188,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
 
         if (name != "" &&  hp != 0 &&  type != "" &&  inventory_max_size != 0 && size != 0  && weight != 0  && defense  != 0) {
             Creature creature13 = new Creature(name, hp, type, inventory_max_size, size, weight, defense);
+            creature = creature13;
             persistCreature(creature13);
         }
     }
