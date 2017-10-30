@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="portrait"
     android:configChanges="keyboardHidden|orientation"
     android:weightSum="1">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.v7.widget.CardView
         android:id="@+id/card_view1"
         android:layout_width="match_parent"
         android:layout_height="254dp"
-        android:layout_marginTop="@dimen/md_keylines"
         android:layout_marginBottom="@dimen/md_keylines"
         android:layout_marginLeft="@dimen/md_keylines"
         android:layout_marginRight="@dimen/md_keylines"
+        android:layout_marginTop="@dimen/md_keylines"
+        android:alwaysDrawnWithCache="false"
+        android:elevation="0dp"
         android:foreground="?attr/selectableItemBackground">
 
         <RelativeLayout
@@ -59,11 +61,11 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Potion"
-                android:textColor="?attr/colorPrimary"
-                android:layout_marginStart="16dp"
                 android:layout_below="@+id/card_text1"
-                android:layout_toEndOf="@+id/attack1" />
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/attack1"
+                android:text="Potion"
+                android:textColor="?attr/colorPrimary" />
 
             <Button
                 android:id="@+id/attack1"
