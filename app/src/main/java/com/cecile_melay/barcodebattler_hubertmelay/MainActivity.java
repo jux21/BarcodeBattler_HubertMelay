@@ -52,18 +52,26 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    //Activity Main View
     Toolbar toolbar;
-    Button btnCreateNewPlayer;
     TextView playerNameTextView;
     TextView playerDetailsTextView;
-    AutoCompleteTextView editText;
     String playerName = "";
+
+    //Fragment Home View
+    //Display Create New Player
+    Button btnCreateNewPlayer;
+    AutoCompleteTextView editText;
+
+    //Fragments
     private List<MyFragment> fragments = new ArrayList<>();
     private MyFragment homeFragment;
+    String params = "";
+
+    //Permissions
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
     private static final int MY_PERMISSIONS_NFC = 0;
-    String params = "";
+
 
     public String getParams() {
         return params;
@@ -97,14 +105,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             btnCreateNewPlayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    playerName = editText.getText().toString();
-                    createNewPlayer(playerName);
+                playerName = editText.getText().toString();
+                createNewPlayer(playerName);
                 }
             });
         } else {
             launchGame();
         }
-
 
         //Creature creatureFromBDD = creatureDAO.getCreatureWithName("Jux");
         //if(creatureFromBDD != null) {
@@ -127,9 +134,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startFragment(Home.class);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
