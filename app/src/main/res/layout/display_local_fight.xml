@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="portrait"
+    android:configChanges="keyboardHidden|orientation"
+    android:weightSum="1">
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/card_view1"
+        android:layout_width="match_parent"
+        android:layout_height="254dp"
+        android:layout_marginTop="@dimen/md_keylines"
+        android:layout_marginBottom="@dimen/md_keylines"
+        android:layout_marginLeft="@dimen/md_keylines"
+        android:layout_marginRight="@dimen/md_keylines"
+        android:foreground="?attr/selectableItemBackground">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/card_image1"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/card_title1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_title_height"
+                android:layout_alignBottom="@+id/card_image1"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:text="@string/item_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/dark_grey" />
+
+            <TextView
+                android:id="@+id/card_text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_image1"
+                android:layout_marginBottom="@dimen/md_keylines"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:layout_marginRight="@dimen/md_keylines"
+                android:layout_marginTop="@dimen/md_keylines"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="Lorem ipsum "
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/article_subheading" />
+
+            <Button
+                android:id="@+id/action_button1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_text1"
+                android:text="Action"
+                android:textColor="?attr/colorPrimary" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="254dp"
+        android:layout_marginBottom="@dimen/md_keylines"
+        android:layout_marginLeft="@dimen/md_keylines"
+        android:layout_marginRight="@dimen/md_keylines"
+        android:foreground="?attr/selectableItemBackground">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/card_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/card_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_title_height"
+                android:layout_alignBottom="@+id/card_image"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:text="@string/item_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/dark_grey" />
+
+            <TextView
+                android:id="@+id/card_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_image"
+                android:layout_marginBottom="@dimen/md_keylines"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:layout_marginRight="@dimen/md_keylines"
+                android:layout_marginTop="@dimen/md_keylines"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="Lorem ipsum "
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/article_subheading" />
+
+            <Button
+                android:id="@+id/action_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_text"
+                android:text="Action"
+                android:textColor="?attr/colorPrimary" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

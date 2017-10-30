@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.EntityCatch;
 import com.cecile_melay.barcodebattler_hubertmelay.MainActivity;
+import com.cecile_melay.barcodebattler_hubertmelay.NFCFight;
 import com.cecile_melay.barcodebattler_hubertmelay.R;
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.EquipmentDAO;
@@ -113,7 +114,8 @@ public class Home extends MyFragment {
         actionFight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).startFragment(ChooseCreatureForNFCFight.class);
+                Intent entityCatch = new Intent(getActivity(), NFCFight.class);
+                startActivity(entityCatch);
             }
         });
 

@@ -11,7 +11,7 @@ public class DisplayLocalFight extends MyFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.display_fight;
+        return R.layout.display_local_fight;
     }
 
     @Override

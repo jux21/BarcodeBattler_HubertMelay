@@ -95,8 +95,7 @@ public class ChooseCreatureForLocalFight extends MyFragment {
                     //Launch your activity fight
                     //((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayLocalFight.class, map.get("id"));
                     //((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayLocalFight.class, map.get("id"));
-                    Intent entityCatch = new Intent(getActivity(), ActivityFight.class);
-                    startActivity(entityCatch);
+                    ((MainActivity) getActivity()).startFragment(DisplayLocalFight.class);
                 }
             });
 
