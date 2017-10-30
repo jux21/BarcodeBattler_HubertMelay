@@ -6,14 +6,19 @@
     android:configChanges="keyboardHidden|orientation"
     android:weightSum="1">
 
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:layout_height="wrap_content"
+        android:text="Liste des créature"
+        />
 
     <ListView
         android:id="@+id/listCreatures"
         android:layout_width="match_parent"
-        android:layout_height="421dp" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

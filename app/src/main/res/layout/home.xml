@@ -105,8 +105,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Créatures"
-                android:layout_above="@+id/button"
+                android:layout_above="@+id/action_add_potion"
                 android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/button"
+                android:layout_alignParentStart="true"
+                android:text="Capturer" />
 
 
         </RelativeLayout>

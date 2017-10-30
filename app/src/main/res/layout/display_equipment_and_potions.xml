@@ -9,12 +9,15 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:textSize="30dp"
         android:layout_height="wrap_content"
-        android:text="Contenu du sac" />
+        android:text="Contenu du sac"
+        />
 
     <ListView
         android:id="@+id/bagContent"
         android:layout_width="match_parent"
-        android:layout_height="421dp" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
