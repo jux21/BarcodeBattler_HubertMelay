@@ -55,7 +55,7 @@
                 android:textSize="@dimen/article_subheading" />
 
             <Button
-                android:id="@+id/action_button1"
+                android:id="@+id/potion1"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,10 +63,10 @@
                 android:textColor="?attr/colorPrimary"
                 android:layout_marginStart="16dp"
                 android:layout_below="@+id/card_text1"
-                android:layout_toEndOf="@+id/button" />
+                android:layout_toEndOf="@+id/attack1" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/attack1"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,12 +126,23 @@
                 android:textSize="@dimen/article_subheading" />
 
             <Button
-                android:id="@+id/action_button"
+                android:id="@+id/potion"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Potion"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginStart="16dp"
+                android:layout_below="@+id/card_text"
+                android:layout_toEndOf="@+id/attack" />
+
+            <Button
+                android:id="@+id/attack"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/card_text"
-                android:text="Action"
+                android:text="Attaque"
                 android:textColor="?attr/colorPrimary" />
 
         </RelativeLayout>
