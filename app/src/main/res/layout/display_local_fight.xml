@@ -59,8 +59,19 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Potion"
+                android:textColor="?attr/colorPrimary"
+                android:layout_marginStart="16dp"
                 android:layout_below="@+id/card_text1"
-                android:text="Action"
+                android:layout_toEndOf="@+id/button" />
+
+            <Button
+                android:id="@+id/button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/card_text1"
+                android:text="Attaque"
                 android:textColor="?attr/colorPrimary" />
 
         </RelativeLayout>

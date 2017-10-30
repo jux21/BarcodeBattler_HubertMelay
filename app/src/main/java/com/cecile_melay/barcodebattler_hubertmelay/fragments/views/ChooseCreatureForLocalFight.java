@@ -31,6 +31,8 @@ public class ChooseCreatureForLocalFight extends MyFragment {
     private int hp;
     private String type;
     private  int id;
+    String creatureID1 = "";
+    String creatureID2 = "";
 
     @Override
     protected int getLayoutId() {return R.layout.display_creatures;}
@@ -91,11 +93,16 @@ public class ChooseCreatureForLocalFight extends MyFragment {
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                     //on récupère la HashMap contenant les infos de notre item (titre, description, img)
                     HashMap<String, String> map = (HashMap<String, String>) listCreatures.getItemAtPosition(position);
-
+                    if (creatureID1 == "") {
+                        creatureID1 = map.get("id");
+                    } else if(creatureID2 == "") {
+                        creatureID2 = map.get("id");
+                        ((MainActivity) getActivity()).startDisplayLocalFightFragment(DisplayLocalFight.class, creatureID1, creatureID2);
+                    }
                     //Launch your activity fight
                     //((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayLocalFight.class, map.get("id"));
                     //((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayLocalFight.class, map.get("id"));
-                    ((MainActivity) getActivity()).startFragment(DisplayLocalFight.class);
+
                 }
             });
 

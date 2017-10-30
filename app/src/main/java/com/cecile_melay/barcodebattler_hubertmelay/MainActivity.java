@@ -66,20 +66,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Fragments
     private List<MyFragment> fragments = new ArrayList<>();
     private MyFragment homeFragment;
+
+    //ID number of the creature selected in the display creatures list
     String params = "";
+
+    //ID number of the 2 creatures selected in the display creatures list for a local fight
+    String param1 = "";
+    String param2 = "";
 
     //Permissions
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
     private static final int MY_PERMISSIONS_NFC = 0;
-
-
-    public String getParams() {
-        return params;
-    }
-
-    public void setParams(String params) {
-        this.params = params;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -319,6 +316,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void startDisplayCreatureFragment(final Class<? extends MyFragment> fragmentClass, String id) {
         params = id;
         startFragment(fragmentClass);
+    }
+    public void startDisplayLocalFightFragment(final Class<? extends MyFragment> fragmentClass, String id1, String id2) {
+        param1 = id1;
+        param2 = id2;
+        startFragment(fragmentClass);
+    }
+
+    public String getParam1() {
+        return param1;
+    }
+
+    public void setParam1(String param1) {
+        this.param1 = param1;
+    }
+
+    public String getParam2() {
+        return param2;
+    }
+
+    public void setParam2(String param2) {
+        this.param2 = param2;
+    }
+
+    public String getParams() {
+        return params;
+    }
+
+    public void setParams(String params) {
+        this.params = params;
     }
 
 }
