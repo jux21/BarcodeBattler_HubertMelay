@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cecile_melay.barcodebattler_hubertmelay.MainActivity;
@@ -61,8 +62,7 @@ public class DisplayLocalFight extends MyFragment {
         cardView1 = (CardView) this.contentView.findViewById(R.id.card_view1);
         cardView2 = (CardView) this.contentView.findViewById(R.id.card_view);
 
-        params = new LinearLayout.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
+
 
         //Get creature 1 and 2 data
         String id1 = ((MainActivity) getActivity()).getParam1();
@@ -144,6 +144,8 @@ public class DisplayLocalFight extends MyFragment {
             }
         }
 
+
+
         btnAttack2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +165,9 @@ public class DisplayLocalFight extends MyFragment {
                 btnPotion1.setTextColor(Color.parseColor("#3F51B5"));
 
                 if(creature1.getHp() <= 0) {
+                    params =  (LinearLayout.LayoutParams) cardView1.getLayoutParams();
+                    params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, params.bottomMargin); // left, top, right, bottom
+                    cardView2.setLayoutParams(params);
                     cardView1.setVisibility(View.GONE);
                    //cardView2.setPadding(0,35,0,0);
                 }
@@ -187,12 +192,11 @@ public class DisplayLocalFight extends MyFragment {
                 btnAttack2.setTextColor(Color.parseColor("#3F51B5"));
                 btnPotion2.setTextColor(Color.parseColor("#3F51B5"));
 
-
-
-
                 if(creature2.getHp() <= 0) {
-                    cardView1.setVisibility(View.GONE);
-                    //cardView2.setLayout(0,35,0,0);
+                    params =  (LinearLayout.LayoutParams) cardView1.getLayoutParams();
+                    params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, params.bottomMargin); // left, top, right, bottom
+                    cardView1.setLayoutParams(params);
+                    cardView2.setVisibility(View.GONE);
                 }
             }
         });

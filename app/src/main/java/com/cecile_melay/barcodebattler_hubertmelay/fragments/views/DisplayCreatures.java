@@ -32,11 +32,20 @@ public class DisplayCreatures extends MyFragment {
 
     ListView listCreatures;
     private TextView numberOfCreatures;
+
+    //Creature data
     private String name;
     private int hp;
     private String type;
     private  int id;
     private int imagePath;
+
+    //Detect wich action to launch (local fight, nfc fight, or show creature details)
+    String actionOnClickItem;
+
+    //Creature choosen for local fight
+    String creatureID1 = "";
+    String creatureID2 = "";
 
     @Override
     protected int getLayoutId() {return R.layout.display_creatures;}
@@ -48,6 +57,7 @@ public class DisplayCreatures extends MyFragment {
 
     @Override
     protected void init() {
+        actionOnClickItem = ((MainActivity) getActivity()).getParams();
         listCreatures = (ListView)contentView.findViewById(R.id.listCreatures);
         numberOfCreatures = (TextView)contentView.findViewById(R.id.textView2);
         CreatureDAO creatureDAO = new CreatureDAO(this.getContext());
@@ -112,7 +122,25 @@ public class DisplayCreatures extends MyFragment {
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                     //on récupère la HashMap contenant les infos de notre item (titre, description, img)
                     HashMap<String, String> map = (HashMap<String, String>) listCreatures.getItemAtPosition(position);
-                    ((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayCreature.class, map.get("id"));
+                    switch(actionOnClickItem) {
+                        case "onClickShowCreatureDetails":
+                            ((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayCreature.class, map.get("id"));
+                            break;
+                        case "OnClickLaunchLocalFight":
+                            if (creatureID1 == "") {
+                                creatureID1 = map.get("id");
+                            } else if(creatureID2 == "") {
+                                creatureID2 = map.get("id");
+                                ((MainActivity) getActivity()).startDisplayLocalFightFragment(DisplayLocalFight.class, creatureID1, creatureID2);
+                            }
+                            break;
+                        case "OnClickLaunchNFCFight":
+                            //todo code launch your activity fight
+                            break;
+                        default:
+                            break;
+                    }
+
                 }
             });
 

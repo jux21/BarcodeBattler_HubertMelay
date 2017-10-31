@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         playerDetailsTextView = (TextView) headerView.findViewById(R.id.display_player_details);
         playerDetailsTextView.setText("Niveau : "+(playersFromBDD.get(0).getNbLosses() - playersFromBDD.get(0).getNbWin()));
 
-        //createEntities();
+        createEntities();
 
        /* Intent iin= getIntent();
         Bundle b = iin.getExtras();
@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_display_creatures) {
 
-            startFragment(DisplayCreatures.class);
+            startDisplayCreatureFragment(DisplayCreatures.class, "onClickShowCreatureDetails");
 
         } else if (id == R.id.nav_display_equipment_and_potions) {
 
@@ -258,10 +258,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_local_fight) {
 
-            startFragment(ChooseCreatureForLocalFight.class);
+            startDisplayCreatureFragment(DisplayCreatures.class, "OnClickLaunchLocalFight");
 
         } else if (id == R.id.nav_nfc_fight) {
 
+            //todo code use startDisplayCreatureFragment(DisplayCreatures.class, "OnClickLaunchNFCFight");
             Intent entityCatch = new Intent(this, NFCFight.class);
             startActivity(entityCatch);
         }

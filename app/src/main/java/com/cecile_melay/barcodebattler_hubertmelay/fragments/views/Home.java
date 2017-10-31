@@ -106,7 +106,7 @@ public class Home extends MyFragment {
         actionLocalFight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).startFragment(ChooseCreatureForLocalFight.class);
+                ((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayCreatures.class, "OnClickLaunchLocalFight");
             }
         });
 
@@ -123,7 +123,7 @@ public class Home extends MyFragment {
         displayCreatures.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).startFragment(DisplayCreatures.class);
+                ((MainActivity) getActivity()).startDisplayCreatureFragment(DisplayCreatures.class, "onClickShowCreatureDetails");
             }
         });
 
