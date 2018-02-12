@@ -171,32 +171,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         EquipmentDAO equipmentDAO = new EquipmentDAO(this);
         PotionDAO potionDAO = new PotionDAO(this);
 
-        Creature creature1 = new Creature("Jux",120,"air",5,80,50,30);
-        Creature creature2 = new Creature("Cecile",140,"feu",3,50,20,10);
-        Creature creature3 = new Creature("Mad",120,"eau",8,80,100,300);
-        Creature creature4 = new Creature("Max",120,"terre",6,90,75,160);
-        Equipment equipment1 = new Equipment("Cape de feu","defense",10);
-        Equipment equipment2 = new Equipment("Épée du dragon","attaque",10);
-        Equipment equipment3 = new Equipment("Basket Adidas","vitesse",5);
-        Potion potion1 = new Potion("potion revigorante","vie",10);
-        Potion potion2 = new Potion("potion de vitesse","vitesse",20);
-        Potion potion3 = new Potion("potion de force","attaque",25);
+        //Creature creature1 = new Creature("Jux",120,"air",5,80,50,30);
+        //Creature creature2 = new Creature("Cecile",140,"feu",3,50,20,10);
+        //Creature creature3 = new Creature("Mad",120,"eau",8,80,100,300);
+        //Creature creature4 = new Creature("Max",120,"terre",6,90,75,160);
+        //Equipment equipment1 = new Equipment("Cape de feu","defense",10);
+        //Equipment equipment2 = new Equipment("Épée du dragon","attaque",10);
+        //Equipment equipment3 = new Equipment("Basket Adidas","vitesse",5);
+        //Potion potion1 = new Potion("potion revigorante","vie",10);
+        //Potion potion2 = new Potion("potion de vitesse","vitesse",20);
+        //Potion potion3 = new Potion("potion de force","attaque",25);
 
         creatureDAO.open();
-        creatureDAO.insertCreature(creature1);
-        creatureDAO.insertCreature(creature2);
-        creatureDAO.insertCreature(creature3);
-        creatureDAO.insertCreature(creature4);
+        //creatureDAO.insertCreature(creature1);
+        //creatureDAO.insertCreature(creature2);
+        //creatureDAO.insertCreature(creature3);
+        //creatureDAO.insertCreature(creature4);
         creatureDAO.close();
         equipmentDAO.open();
-        equipmentDAO.insertEquipment(equipment1);
-        equipmentDAO.insertEquipment(equipment2);
-        equipmentDAO.insertEquipment(equipment3);
+        //equipmentDAO.insertEquipment(equipment1);
+        //equipmentDAO.insertEquipment(equipment2);
+        //equipmentDAO.insertEquipment(equipment3);
         equipmentDAO.close();
         potionDAO.open();
-        potionDAO.insertPotion(potion1);
-        potionDAO.insertPotion(potion2);
-        potionDAO.insertPotion(potion3);
+        //potionDAO.insertPotion(potion1);
+        //potionDAO.insertPotion(potion2);
+        //potionDAO.insertPotion(potion3);
         potionDAO.close();
 
     }

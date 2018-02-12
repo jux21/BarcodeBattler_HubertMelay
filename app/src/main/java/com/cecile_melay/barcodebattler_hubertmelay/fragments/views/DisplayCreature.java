@@ -1,5 +1,6 @@
 package com.cecile_melay.barcodebattler_hubertmelay.fragments.views;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -47,6 +48,7 @@ public class DisplayCreature extends MyFragment {
 
         TextView cartTitle = (TextView) this.contentView.findViewById(R.id.creature_title);
         cartTitle.setText(creature.getName());
+        cartTitle.setTextColor(Color.RED);
 
         ImageView cardImage = (ImageView) this.contentView.findViewById(R.id.card_image);
         cardImage.setImageResource(creature.getImagePath());

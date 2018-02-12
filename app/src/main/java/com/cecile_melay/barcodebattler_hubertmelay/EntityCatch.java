@@ -11,9 +11,18 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
+import com.cecile_melay.barcodebattler_hubertmelay.database.dao.EquipmentDAO;
+import com.cecile_melay.barcodebattler_hubertmelay.database.dao.PotionDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
+import com.cecile_melay.barcodebattler_hubertmelay.entities.Equipment;
+import com.cecile_melay.barcodebattler_hubertmelay.entities.Potion;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.views.DisplayCreature;
 import com.google.zxing.Result;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -24,7 +33,14 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class EntityCatch extends Activity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView ScannerView;
-    Creature creature;
+    static Creature creature;
+    static Potion potion;
+    static Equipment equipment;
+    private static List<String> creatureNames = new ArrayList<String>(Arrays.asList("Garman","Pestana","Heishman","Frankum","Tamiko","Mowbray","Taketa","Crossman","Ora Yun"));
+    private static List<String> creatureTitre = new ArrayList<String>(Arrays.asList(" le fort"," le grand"," le magnifique"," le turbulent"));
+    /* elixir + */ private static List<String> potionNames = new ArrayList<String>(Arrays.asList("de victoire","de resurgence","de vitalité","maudit","des dieux","du prophète","de resurrection"));
+    private static List<String> equipmentNames = new ArrayList<String>(Arrays.asList("cape de feu","bouclier du soleil","armure des abysses","demacia","épée de feu","faux de la mort","couteau esprit","bonbon enchanté","caramel doré"));
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +49,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
         QRCScanner(this.ScannerView);
     }
 
-    public  void QRCScanner (View view){
+    public void QRCScanner (View view){
         ScannerView = new ZXingScannerView(this);   //  initialise le scanner view
         setContentView(ScannerView);
         ScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
@@ -59,18 +75,37 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
 
         String message = createEntity(barCodeFormat, result);
 
-        displayAlertDialog(message, barCodeFormat, result);
+        if(message != "Oups, vous n'avez rien capturé") {
+            displayAlertDialog(message, barCodeFormat, result);
+        }
+        else {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        }
 
         ScannerView.resumeCameraPreview(this);
     }
 
     private void displayAlertDialog(String message, String barCodeFormat, String result) {
         ScannerView.stopCamera();
+        String messageTextBox;
+        if(message == "Félicitation, créature capturée !") {
+            messageTextBox = creature.getName()+"\nPV : "+creature.getHp()+"\nType : "+creature.getType()+
+            "\n\nCapturer d'autres entités ?";
+        }
+        else if (message == "Félicitation, potion capturée !")
+        {
+            messageTextBox = potion.getName()+"\nType : "+potion.getType()+"\nBonus : "+potion.getBonus()+
+                    "\n\nCapturer d'autres entités ?";
+        }
+        else
+        {
+            messageTextBox = equipment.getName()+"\nType : "+equipment.getType()+"\nBonus : "+equipment.getBonus()+
+                    "\n\nCapturer d'autres entités ?";
+        }
+
         AlertDialog alterDialog = new AlertDialog.Builder(this)
             .setTitle(message)
-            //.setMessage(result+  " - " + barCodeFormat +
-            .setMessage("Nom : "+creature.getName()+" PV :"+creature.getHp()+" Type :"+creature.getType()+
-                    "\n\nCapturer d'autres entités ?")
+            .setMessage(messageTextBox)
             .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -101,11 +136,11 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
                     message = "Félicitation, créature capturée !";
                     break;
                 case "EAN_8":
-                    createCreature8(result);
+                    createCreature(result);
                     message = "Félicitation, créature capturée !";
                     break;
                 case "EAN_13":
-                    createCreature13(result);
+                    createCreature(result);
                     message = "Félicitation, créature capturée !";
                     break;
 
@@ -148,48 +183,105 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
         return message;
     }
 
+    public String pickRandomName(int type) {
+        Random r = new Random();
+        String retour = "The nameless";
+        if(type == 0) // creature
+        {
+            String name = creatureNames.get(r.nextInt(((creatureNames.size()-1) - 0) + 1) + 0);
+            String titre = creatureTitre.get(r.nextInt(((creatureTitre.size()-1) - 0) + 1) + 0);
+            retour = name+titre;
+        }
+        else if (type == 1) // potion
+        {
+            String name = potionNames.get(r.nextInt(((potionNames.size()-1) - 0) + 1) + 0);
+            retour = name;
+        }
+        else // equipment
+        {
+            String name = equipmentNames.get(r.nextInt(((equipmentNames.size()-1) - 0) + 1) + 0);
+            retour = name;
+        }
+        Log.d("nameCreature",retour);
+        return retour;
+    }
+
+    public double normalize(double x) {
+        return ((x - 1) / (30 - 1)) * (normalizedHigh - normalizedLow) + normalizedLow;
+    }
+
     private void createEquipment(String result) {
+        String name = pickRandomName(2);
+        String type = "";
+        int bonus = 0;
+        char[] array = result.toCharArray();
+
+        //for (int i = 0; i < array.length; i++) {
+            //name = String.valueOf(array[0] + array[1] + array[2]+array[3]);
+            type = getType(array[array.length-2]);
+            bonus = array[array.length-1];
+        //}
+        Log.d("infoEquipment",name+" "+type+" "+bonus);
+        if (name != "" &&  type != "" &&  bonus != 0) {
+            equipment = new Equipment(name, type, bonus);
+            persistEquipment(equipment);
+        }
+        else {
+            Toast.makeText(this, "code barre non valide", Toast.LENGTH_LONG).show();
+        }
 
     }
 
-    private void createCreature8(String result) {
+    private void createPotion(String result) {
+        String name = "Elixir "+pickRandomName(1);
+        String type = "";
+        int bonus = 0;
+        char[] array = result.toCharArray();
+
+        //for (int i = 0; i < array.length; i++) {
+            //name = String.valueOf(array[0] + array[1] + array[2]+array[3]);
+            type = getType(array[array.length-2]);
+            bonus = array[array.length-1];
+        //}
+        Log.d("infoPotion",name+" "+type+" "+bonus);
+        if (name != "" &&  type != "" &&  bonus != 0) {
+            potion = new Potion(name, type, bonus);
+            persistPotion(potion);
+        }
+        else {
+            Toast.makeText(this, "code barre non valide", Toast.LENGTH_LONG).show();
+        }
 
     }
 
-    private void createCreature13(String result) {
-        String name ="";
+    private void createCreature(String result) {
+        String name = pickRandomName(0);
         int hp = 0;
         String type = "";
         int inventory_max_size = 0;
         int size = 0;
         int weight = 0;
         int defense = 0;
-
-        String test = "0123456789012";
         char[] array = result.toCharArray();
 
-        for (int i = 0; i < array.length; i++) {
-
-            name = String.valueOf(array[0] + array[1] + array[2]+array[3]);
-
+        //for (int i = 0; i < array.length; i++) {
+            //name = String.valueOf(array[0] + array[1] + array[2]+array[3]);
             hp = array[6];
             hp += array[7];
+            type = getType(array[array.length-1]);
+            inventory_max_size = array[array.length-2];
+            size = array[array.length-3];
+            weight = array[array.length-4];
+            defense = array[array.length-5];
+        //}
 
-            type = getType(array[8]);
-
-            inventory_max_size = array[9];
-
-            size = array[10];
-
-            weight = array[11];
-
-            defense = array[12];
-        }
+        Log.d("infoCreature",name+" "+hp+" "+type+" "+inventory_max_size+" "+size+" "+weight+" "+defense);
 
         if (name != "" &&  hp != 0 &&  type != "" &&  inventory_max_size != 0 && size != 0  && weight != 0  && defense  != 0) {
-            Creature creature13 = new Creature(name, hp, type, inventory_max_size, size, weight, defense);
-            creature = creature13;
-            persistCreature(creature13);
+            creature = new Creature(name, hp, type, inventory_max_size, size, weight, defense);
+            persistCreature(creature);
+        } else {
+            Toast.makeText(this, "code barre non valide", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -230,19 +322,26 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
         return type;
     }
 
-    private void createPotion(String result) {
 
-    }
-
-    private void createCreature(String result) {
-
-
-    }
 
     private void persistCreature(Creature creature) {
         CreatureDAO creatureDAO = new CreatureDAO(this);
         creatureDAO.open();
         creatureDAO.insertCreature(creature);
         creatureDAO.close();
+    }
+
+    private void persistPotion(Potion potion) {
+        PotionDAO potionDAO = new PotionDAO(this);
+        potionDAO.open();
+        potionDAO.insertPotion(potion);
+        potionDAO.close();
+    }
+
+    private void persistEquipment(Equipment equipment) {
+        EquipmentDAO equipmentDAO = new EquipmentDAO(this);
+        equipmentDAO.open();
+        equipmentDAO.insertEquipment(equipment);
+        equipmentDAO.close();
     }
 }
