@@ -37,7 +37,9 @@ public class DisplayCreatures extends MyFragment {
     private String name;
     private int hp;
     private String type;
-    private  int id;
+    private int id;
+    private int force;
+    private int defense;
     private int imagePath;
 
     //Detect wich action to launch (local fight, nfc fight, or show creature details)
@@ -69,9 +71,12 @@ public class DisplayCreatures extends MyFragment {
         }
         else {
             List<String> creaturesFromBDDString = creatureDAO.creaturesToString(creaturesFromBDD);
-            numberOfCreatures.setText(creaturesFromBDD.size()+" creatures");
+            if(creaturesFromBDD.size()>1)
+                numberOfCreatures.setText(creaturesFromBDD.size()+" créatures");
+            else
+                numberOfCreatures.setText(creaturesFromBDD.size()+" créature");
 
-            //Création de la ArrayList qui nous permettra de remplire la listView
+            //Création de la ArrayList qui nous permettra de remplir la listView
             ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
             //On déclare la HashMap qui contiendra les informations pour un item
@@ -83,6 +88,8 @@ public class DisplayCreatures extends MyFragment {
                 hp = creature.getHp();
                 type = creature.getType();
                 imagePath = creature.getImagePath();
+                force = creature.getStrength();
+                defense = creature.getDefense();
                 //Création d'une HashMap pour insérer les informations du premier item de notre listView
                 map = new HashMap<String, String>();
                 //on insère un élément titre que l'on récupérera dans le textView titre créé dans le fichier affichageitem.xml
@@ -103,7 +110,7 @@ public class DisplayCreatures extends MyFragment {
 
 
                 //on insère un élément description que l'on récupérera dans le textView description créé dans le fichier affichageitem.xml
-                map.put("description", "PV :"+ hp + " Type :" + type);
+                map.put("description", "\nPV : "+ hp + "\nForce : " +force + "\nDéfense : " + defense +"\nType : " + type);
                 //enfin on ajoute cette hashMap dans la arrayList
                 listItem.add(map);
             }

@@ -86,7 +86,7 @@
                 android:layout_alignParentStart="true" />
 
             <Button
-                android:id="@+id/action_add_potion"
+                android:id="@+id/action_free"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:layout_alignEnd="@+id/creature_details" />
 
             <Button
-                android:id="@+id/action_free"
+                android:id="@+id/action_add_potion"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,7 +104,8 @@
                 android:layout_marginStart="12dp"
                 android:layout_toEndOf="@+id/action_add_equip"
                 android:text="Potion"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="?attr/colorPrimary"
+                android:layout_below="@+id/creature_details" />
 
 
         </RelativeLayout>

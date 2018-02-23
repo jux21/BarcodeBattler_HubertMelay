@@ -124,7 +124,7 @@ public class DisplayLocalFight extends MyFragment {
             btnPotion1.setEnabled(false);
             btnAttack1.setTextColor(Color.parseColor("#aaaaaa"));
             btnPotion1.setTextColor(Color.parseColor("#aaaaaa"));
-        //Si les 2 creatures ont la mémé rapidité
+        //Si les 2 creatures ont la même rapidité
         //Le premier à pouvoir jouer est choisi aléatoirement
         } else {
             int min = 0;

@@ -36,10 +36,10 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
     static Creature creature;
     static Potion potion;
     static Equipment equipment;
-    private static List<String> creatureNames = new ArrayList<String>(Arrays.asList("Garman","Pestana","Heishman","Frankum","Tamiko","Mowbray","Taketa","Crossman","Ora Yun"));
-    private static List<String> creatureTitre = new ArrayList<String>(Arrays.asList(" le fort"," le grand"," le magnifique"," le turbulent"));
+    private static List<String> creatureNames = new ArrayList<String>(Arrays.asList("Ushug","Bugdul","Klughig","Bernard","Seepig","Djent","Ako","Anubis","Wided","Rachid,","Garman","Pestana","Heishman","Frankum","Tamiko","Mowbray","Taketa","Crossman","Ora Yun"));
+    private static List<String> creatureTitre = new ArrayList<String>(Arrays.asList(" l'impétueux"," le sage"," le diplomate"," le destructeur"," le repenti"," le charmeur"," le serviteur"," le traitre"," le développeur Web"," le Data Scientist"," du MBDS"," le conquérant"," l'incroyable"," du royaume"," le puant"," le terrible"," le fort"," le grand"," le magnifique"," le turbulent"));
     /* elixir + */ private static List<String> potionNames = new ArrayList<String>(Arrays.asList("de victoire","de resurgence","de vitalité","maudit","des dieux","du prophète","de resurrection"));
-    private static List<String> equipmentNames = new ArrayList<String>(Arrays.asList("cape de feu","bouclier du soleil","armure des abysses","demacia","épée de feu","faux de la mort","couteau esprit","bonbon enchanté","caramel doré"));
+    private static List<String> equipmentNames = new ArrayList<String>(Arrays.asList("ceinture des cieux","cape de feu","bouclier du soleil","armure des abysses","demacia","épée de feu","faux de la mort","couteau esprit","bonbon enchanté","caramel doré"));
 
 
     @Override
@@ -206,9 +206,9 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
         return retour;
     }
 
-    public double normalize(double x) {
+    /*public double normalize(double x) {
         return ((x - 1) / (30 - 1)) * (normalizedHigh - normalizedLow) + normalizedLow;
-    }
+    }*/
 
     private void createEquipment(String result) {
         String name = pickRandomName(2);
@@ -218,7 +218,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
 
         //for (int i = 0; i < array.length; i++) {
             //name = String.valueOf(array[0] + array[1] + array[2]+array[3]);
-            type = getType(array[array.length-2]);
+            type = getPotionEquipment(array[array.length-2]);
             bonus = array[array.length-1];
         //}
         Log.d("infoEquipment",name+" "+type+" "+bonus);
@@ -240,7 +240,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
 
         //for (int i = 0; i < array.length; i++) {
             //name = String.valueOf(array[0] + array[1] + array[2]+array[3]);
-            type = getType(array[array.length-2]);
+            type = getPotionEquipment(array[array.length-2]);
             bonus = array[array.length-1];
         //}
         Log.d("infoPotion",name+" "+type+" "+bonus);
@@ -321,6 +321,44 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
         }
         return type;
     }
+
+    private String getPotionEquipment(char c) {
+        String type = "";
+        switch(Character.getNumericValue(c)) {
+            case 0:
+                type = "hp";
+                break;
+            case 1:
+                type = "size";
+                break;
+            case 2:
+                type = "weight";
+                break;
+            case 3:
+                type = "speed";
+                break;
+            case 4:
+                type = "strength";
+                break;
+            case 5:
+                type = "defense";
+                break;
+            case 6:
+                type = "hp";
+                break;
+            case 7:
+                type = "strength";
+                break;
+            case 8:
+                type = "defense";
+                break;
+            case 9:
+                type = "speed";
+                break;
+        }
+        return type;
+    }
+
 
 
 

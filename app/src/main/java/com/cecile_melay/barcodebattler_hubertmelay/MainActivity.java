@@ -160,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Si entitycatch start this mainactivity, display the details of the creature captured
         if(b!=null) {
             String j = String.valueOf(b.get("position"));
-            Log.d("YOLOOO", j);
             //startDisplayCreatureFragment(DisplayCreature.class, j);
         }*/
     }
