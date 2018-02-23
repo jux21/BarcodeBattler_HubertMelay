@@ -1,6 +1,8 @@
 package com.cecile_melay.barcodebattler_hubertmelay.fragments.views;
 
 import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,6 +44,9 @@ public class DisplayLocalFight extends MyFragment {
     TextView cartTitle;
     ImageView cardImage;
     TextView creatureDetails;
+
+    ProgressBar progressBar1;
+    ProgressBar progressBar2;
 
     LinearLayout.LayoutParams params;
 
@@ -80,28 +86,35 @@ public class DisplayLocalFight extends MyFragment {
             //display Creature 1 data
             cartTitle1 = (TextView) this.contentView.findViewById(R.id.card_title1);
             cartTitle1.setText(creature1.getName());
+            cartTitle1.setTextColor(Color.RED);
             cardImage1 = (ImageView) this.contentView.findViewById(R.id.card_image1);
             cardImage1.setImageResource(creature1.getImagePath());
             creatureDetails1 = (TextView) this.contentView.findViewById(R.id.card_text1);
-            creatureDetails1.setText("PV : " + creature1.getHp()
-                    + " T : " + creature1.getType()
-                    + " D : " + creature1.getDefense()
-                    + " R : " + creature1.getSpeed()
-                    + " F : " + creature1.getStrength());
+            String text = "PV : " + creature1.getHp()
+                    + "  - Armure : " + creature1.getDefense()
+                    + "\nAttaque : " + creature1.getStrength()
+                    + " - Vitesse : " + creature1.getSpeed()
+                    + "\nType : " + creature1.getType();
+            creatureDetails1.setText(text.replace("\n", System.getProperty("line.separator")));
+            progressBar1 = (ProgressBar) this.contentView.findViewById(R.id.life_bar1);
+
         }
 
         if (creature2 != null) {
             //display Creature 2 data
             cartTitle = (TextView) this.contentView.findViewById(R.id.card_title);
             cartTitle.setText(creature2.getName());
+            cartTitle.setTextColor(Color.GREEN);
             cardImage = (ImageView) this.contentView.findViewById(R.id.card_image);
             cardImage.setImageResource(creature2.getImagePath());
             creatureDetails = (TextView) this.contentView.findViewById(R.id.card_text);
-            creatureDetails.setText("PV : " + creature2.getHp()
-                    + " T : " + creature2.getType()
-                    + " D : " + creature2.getDefense()
-                    + " R : " + creature2.getSpeed()
-                    + " F : " + creature2.getStrength());
+            String text = "PV : " + creature2.getHp()
+                    + "  - Armure : " + creature2.getDefense()
+                    + "\nAttaque : " + creature2.getStrength()
+                    + " - Vitesse : " + creature2.getSpeed()
+                    + "\nType : " + creature2.getType();
+            creatureDetails.setText(text.replace("\n", System.getProperty("line.separator")));
+            progressBar2 = (ProgressBar) this.contentView.findViewById(R.id.life_bar);
         }
 
         btnPotion1 = (Button) contentView.findViewById(R.id.potion1);
@@ -147,14 +160,18 @@ public class DisplayLocalFight extends MyFragment {
 
 
         btnAttack2.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 creature1.setHp(creature1.getHp() - ((creature2.getStrength()+creature1.getDefense())/4));
-                creatureDetails1.setText("PV : " + creature1.getHp()
-                    + " T : " + creature1.getType()
-                    + " D : " + creature1.getDefense()
-                    + " R : " + creature1.getSpeed()
-                    + " F : " + creature1.getStrength());
+                progressBar1.setProgress(30,true);
+                String text = "PV : " + creature2.getHp()
+                        + "  - Armure : " + creature2.getDefense()
+                        + "\nAttaque : " + creature2.getStrength()
+                        + " - Vitesse : " + creature2.getSpeed()
+                        + "\nType : " + creature2.getType();
+                creatureDetails1.setText(text.replace("\n", System.getProperty("line.separator")));
+
                 btnAttack2.setEnabled(false);
                 btnPotion2.setEnabled(false);
                 btnAttack2.setTextColor(Color.parseColor("#aaaaaa"));
@@ -175,14 +192,17 @@ public class DisplayLocalFight extends MyFragment {
         });
 
         btnAttack1.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 creature2.setHp(creature2.getHp() - ((creature1.getStrength()+creature2.getDefense())/4));
-                creatureDetails.setText("PV : " + creature2.getHp()
-                        + " T : " + creature2.getType()
-                        + " D : " + creature2.getDefense()
-                        + " R : " + creature2.getSpeed()
-                        + " F : " + creature2.getStrength());
+                progressBar2.setProgress(30,true);
+                String text = "PV : " + creature2.getHp()
+                        + "  - Armure : " + creature2.getDefense()
+                        + "\nAttaque : " + creature2.getStrength()
+                        + " - Vitesse : " + creature2.getSpeed()
+                        + "\nType : " + creature2.getType();
+                creatureDetails.setText(text.replace("\n", System.getProperty("line.separator")));
                 btnAttack1.setEnabled(false);
                 btnPotion1.setEnabled(false);
                 btnAttack1.setTextColor(Color.parseColor("#aaaaaa"));

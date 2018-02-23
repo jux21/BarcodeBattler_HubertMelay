@@ -51,20 +51,28 @@
                 android:layout_marginRight="@dimen/md_keylines"
                 android:layout_marginTop="@dimen/md_keylines"
                 android:ellipsize="end"
-                android:singleLine="true"
                 android:text="Lorem ipsum "
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/article_subheading" />
+            <ProgressBar
+                android:id="@+id/life_bar1"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="300dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:layout_marginRight="@dimen/md_keylines"
+                android:layout_below="@+id/card_text1"
+                android:progress="100"/>
 
             <Button
                 android:id="@+id/potion1"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/card_text1"
-                android:layout_marginStart="16dp"
-                android:layout_toEndOf="@+id/attack1"
-                android:text="Potion"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="-10dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignRight="@+id/card_text1"
+                android:background="@drawable/flask"
                 android:textColor="?attr/colorPrimary" />
 
             <Button
@@ -72,7 +80,11 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/card_text1"
+                android:layout_alignRight="@+id/card_text1"
+                android:layout_below="@+id/card_image1"
+                android:layout_marginRight="-10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Attaque"
                 android:textColor="?attr/colorPrimary" />
 
@@ -122,28 +134,40 @@
                 android:layout_marginRight="@dimen/md_keylines"
                 android:layout_marginTop="@dimen/md_keylines"
                 android:ellipsize="end"
-                android:singleLine="true"
                 android:text="Lorem ipsum "
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/article_subheading" />
+            <ProgressBar
+                android:id="@+id/life_bar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="300dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:layout_marginRight="@dimen/md_keylines"
+                android:layout_below="@+id/card_text"
+                android:progress="100"/>
 
             <Button
                 android:id="@+id/potion"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Potion"
-                android:textColor="?attr/colorPrimary"
-                android:layout_marginStart="16dp"
-                android:layout_below="@+id/card_text"
-                android:layout_toEndOf="@+id/attack" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/flask"
+                android:layout_marginRight="-10dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignRight="@+id/card_text"
+                />
 
             <Button
                 android:id="@+id/attack"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/card_text"
+                android:layout_alignRight="@+id/card_text"
+                android:layout_below="@+id/card_image"
+                android:layout_marginRight="-10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Attaque"
                 android:textColor="?attr/colorPrimary" />
 
