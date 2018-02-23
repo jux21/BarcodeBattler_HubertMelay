@@ -76,6 +76,12 @@ public class DisplayCreature extends MyFragment {
             cardImage.setImageResource(creature.getImagePath());
 
             TextView creatureDetails = (TextView) this.contentView.findViewById(R.id.creature_details);
+            String percentageWin;
+            if(creature.getNbWin()+creature.getNbLoss()==0)
+                percentageWin = " pas encore combattu";
+            else
+                percentageWin = String.valueOf(creature.getNbWin()/(creature.getNbWin()+creature.getNbLoss())*100);
+
             creatureDetails.setText("PV : " + creature.getHp()
                     + "\nTaille : " + creature.getSize()
                     + "\nType : " + creature.getType()
@@ -83,7 +89,8 @@ public class DisplayCreature extends MyFragment {
                     + "\nDéfense : " + creature.getDefense()
                     + "\nRapidité : " + creature.getSpeed()
                     + "\nForce : " + creature.getStrength()
-                    + "\nPoid : " + creature.getWeight());
+                    + "\nPoid : " + creature.getWeight()
+                    + "\n% de victoire : " + percentageWin);
 
             // Suppression de la créature
             freeButton = (Button) this.contentView.findViewById(R.id.action_free);

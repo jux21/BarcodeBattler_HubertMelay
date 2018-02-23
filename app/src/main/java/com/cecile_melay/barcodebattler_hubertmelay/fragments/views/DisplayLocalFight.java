@@ -50,7 +50,8 @@ public class DisplayLocalFight extends MyFragment {
 
     LinearLayout.LayoutParams params;
 
-
+    Double originalHPcreature1;
+    Double originalHPcreature2;
 
     @Override
     protected int getLayoutId() {
@@ -86,7 +87,7 @@ public class DisplayLocalFight extends MyFragment {
             //display Creature 1 data
             cartTitle1 = (TextView) this.contentView.findViewById(R.id.card_title1);
             cartTitle1.setText(creature1.getName());
-            cartTitle1.setTextColor(Color.RED);
+            cartTitle1.setTextColor(Color.WHITE);
             cardImage1 = (ImageView) this.contentView.findViewById(R.id.card_image1);
             cardImage1.setImageResource(creature1.getImagePath());
             creatureDetails1 = (TextView) this.contentView.findViewById(R.id.card_text1);
@@ -97,14 +98,15 @@ public class DisplayLocalFight extends MyFragment {
                     + "\nType : " + creature1.getType();
             creatureDetails1.setText(text.replace("\n", System.getProperty("line.separator")));
             progressBar1 = (ProgressBar) this.contentView.findViewById(R.id.life_bar1);
-
+            originalHPcreature1 = creature1.getHp();
+            Log.d("originalHPcreature1", String.valueOf(originalHPcreature1));
         }
 
         if (creature2 != null) {
             //display Creature 2 data
             cartTitle = (TextView) this.contentView.findViewById(R.id.card_title);
             cartTitle.setText(creature2.getName());
-            cartTitle.setTextColor(Color.GREEN);
+            cartTitle.setTextColor(Color.WHITE);
             cardImage = (ImageView) this.contentView.findViewById(R.id.card_image);
             cardImage.setImageResource(creature2.getImagePath());
             creatureDetails = (TextView) this.contentView.findViewById(R.id.card_text);
@@ -115,6 +117,8 @@ public class DisplayLocalFight extends MyFragment {
                     + "\nType : " + creature2.getType();
             creatureDetails.setText(text.replace("\n", System.getProperty("line.separator")));
             progressBar2 = (ProgressBar) this.contentView.findViewById(R.id.life_bar);
+            originalHPcreature2 = creature2.getHp();
+            Log.d("originalHPcreature2", String.valueOf(originalHPcreature2));
         }
 
         btnPotion1 = (Button) contentView.findViewById(R.id.potion1);
@@ -164,12 +168,12 @@ public class DisplayLocalFight extends MyFragment {
             @Override
             public void onClick(View v) {
                 creature1.setHp(creature1.getHp() - ((creature2.getStrength()+creature1.getDefense())/4));
-                progressBar1.setProgress(30,true);
-                String text = "PV : " + creature2.getHp()
-                        + "  - Armure : " + creature2.getDefense()
-                        + "\nAttaque : " + creature2.getStrength()
-                        + " - Vitesse : " + creature2.getSpeed()
-                        + "\nType : " + creature2.getType();
+                progressBar1.setProgress((int) ((creature1.getHp()/originalHPcreature1)*100),true);
+                String text = "PV : " + creature1.getHp()
+                        + "  - Armure : " + creature1.getDefense()
+                        + "\nAttaque : " + creature1.getStrength()
+                        + " - Vitesse : " + creature1.getSpeed()
+                        + "\nType : " + creature1.getType();
                 creatureDetails1.setText(text.replace("\n", System.getProperty("line.separator")));
 
                 btnAttack2.setEnabled(false);
@@ -185,6 +189,7 @@ public class DisplayLocalFight extends MyFragment {
                     params =  (LinearLayout.LayoutParams) cardView1.getLayoutParams();
                     params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, params.bottomMargin); // left, top, right, bottom
                     cardView2.setLayoutParams(params);
+                    cartTitle.setTextColor(Color.GREEN);
                     cardView1.setVisibility(View.GONE);
                    //cardView2.setPadding(0,35,0,0);
                 }
@@ -196,7 +201,7 @@ public class DisplayLocalFight extends MyFragment {
             @Override
             public void onClick(View v) {
                 creature2.setHp(creature2.getHp() - ((creature1.getStrength()+creature2.getDefense())/4));
-                progressBar2.setProgress(30,true);
+                progressBar2.setProgress((int) ((creature2.getHp()/originalHPcreature2)*100),true);
                 String text = "PV : " + creature2.getHp()
                         + "  - Armure : " + creature2.getDefense()
                         + "\nAttaque : " + creature2.getStrength()
@@ -216,6 +221,7 @@ public class DisplayLocalFight extends MyFragment {
                     params =  (LinearLayout.LayoutParams) cardView1.getLayoutParams();
                     params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, params.bottomMargin); // left, top, right, bottom
                     cardView1.setLayoutParams(params);
+                    cartTitle1.setTextColor(Color.GREEN);
                     cardView2.setVisibility(View.GONE);
                 }
             }

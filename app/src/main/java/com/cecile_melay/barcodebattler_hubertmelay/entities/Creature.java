@@ -10,7 +10,7 @@ public class Creature {
 
     private int id;
     private String name;
-    private int hp;
+    private Double hp;
     private String type;
     private int inventory_max_size;
     private int size;
@@ -18,12 +18,15 @@ public class Creature {
     private int speed;  // Calculated with size - weight
     private int strength;  // Calculated with (size + weight) / 2
     private int defense;
+    private Double nbWin;
+    private Double nbLoss;
     private int imagePath;
+
 
 
     public Creature() {}
 
-    public Creature(String name, int hp, String type, int inventory_max_size, int size, int weight, int defense) {
+    public Creature(String name, Double hp, String type, int inventory_max_size, int size, int weight, int defense) {
         this.name = name;
         this.hp = hp;
         this.type = type;
@@ -33,6 +36,8 @@ public class Creature {
         this.defense = defense;
         this.speed = this.size - this.weight;
         this.strength = (this.size + this.weight) / 2;
+        this.nbWin = 0.0;
+        this.nbLoss = 0.0;
         this.imagePath = pickImage(this.type);
     }
 
@@ -95,11 +100,11 @@ public class Creature {
         this.name = name;
     }
 
-    public int getHp() {
+    public Double getHp() {
         return hp;
     }
 
-    public void setHp(int hp) {
+    public void setHp(Double hp) {
         this.hp = hp;
     }
 
@@ -159,10 +164,26 @@ public class Creature {
         this.defense = defense;
     }
 
+    public Double getNbWin() {
+        return nbWin;
+    }
+
+    public void setNbWin(Double nbWin) {
+        this.nbWin = nbWin;
+    }
+
+    public Double getNbLoss() {
+        return nbLoss;
+    }
+
+    public void setNbLoss(Double nbLoss) {
+        this.nbLoss = nbLoss;
+    }
+
     public String toString() {
         return "ID : " + id + "\nName : " + name + "\nHeath point : " + hp + "\nType : " + type + "\nInventory max size : " +
                 inventory_max_size + "\nSize : " + size + "\nWeight : " + weight + "\nSpeed : " + speed + "\nType : "
-                + type + "\nStrength: " + strength + "\nDefense: " + defense;
+                + type + "\nStrength: " + strength + "\nDefense: " + defense + "\nnbWin: " + nbWin + "\nnbLoss: " + nbLoss;
     }
 
     public int getImagePath() {

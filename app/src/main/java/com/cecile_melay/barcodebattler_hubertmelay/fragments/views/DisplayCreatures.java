@@ -35,7 +35,7 @@ public class DisplayCreatures extends MyFragment {
 
     //Creature data
     private String name;
-    private int hp;
+    private Double hp;
     private String type;
     private int id;
     private int force;

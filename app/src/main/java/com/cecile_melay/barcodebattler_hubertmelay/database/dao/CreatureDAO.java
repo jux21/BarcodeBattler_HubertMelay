@@ -43,6 +43,11 @@ public class CreatureDAO {
     private static final int NUM_COL_CREATURE_STRENGTH = 8;
     private static final String COL_CREATURE_DEFENSE = DatabaseHandler.CREATURE_DEFENSE;
     private static final int NUM_COL_CREATURE_DEFENSE = 9;
+    private static final String COL_CREATURE_NBWIN = DatabaseHandler.CREATURE_NBWIN;
+    private static final int NUM_COL_CREATURE_NBWIN = 10;
+    private static final String COL_CREATURE_NBLOSS = DatabaseHandler.CREATURE_NBLOSS;
+    private static final int NUM_COL_CREATURE_NBLOSS = 11;
+
 
     private SQLiteDatabase bdd;
     private DatabaseHandler mySQLiteBase;
@@ -79,6 +84,8 @@ public class CreatureDAO {
         values.put(COL_CREATURE_SPEED, creature.getSpeed());
         values.put(COL_CREATURE_STRENGTH, creature.getStrength());
         values.put(COL_CREATURE_DEFENSE, creature.getDefense());
+        values.put(COL_CREATURE_NBWIN, creature.getNbWin());
+        values.put(COL_CREATURE_NBLOSS, creature.getNbLoss());
 
         //on insère l'objet dans la BDD via le ContentValues
         return bdd.insert(CREATURE_TABLE_NAME, null, values);
@@ -97,6 +104,8 @@ public class CreatureDAO {
         values.put(COL_CREATURE_SPEED, creature.getSpeed());
         values.put(COL_CREATURE_STRENGTH, creature.getStrength());
         values.put(COL_CREATURE_DEFENSE, creature.getDefense());
+        values.put(COL_CREATURE_NBWIN, creature.getNbWin());
+        values.put(COL_CREATURE_NBLOSS, creature.getNbLoss());
 
         return bdd.update(CREATURE_TABLE_NAME, values, COL_CREATURE_ID + " = " +id, null);
     }
@@ -110,7 +119,7 @@ public class CreatureDAO {
         //Récupère dans un Cursor les valeurs correspondant à une créature contenue dans la BDD
         Cursor c = bdd.query(CREATURE_TABLE_NAME,
                 new String[] {COL_CREATURE_ID, COL_CREATURE_NAME, COL_CREATURE_HP,COL_CREATURE_TYPE, COL_CREATURE_INVENTORY_MAX_SIZE,
-                COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE},
+                COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE, COL_CREATURE_NBWIN, COL_CREATURE_NBLOSS},
                 COL_CREATURE_NAME + " LIKE \"" + name +"\"", null, null, null, null);
         return cursorToCreature(c);
     }
@@ -119,7 +128,7 @@ public class CreatureDAO {
         //Récupère dans un Cursor les valeurs correspondant à une créature contenue dans la BDD
         Cursor c = bdd.query(CREATURE_TABLE_NAME,
                 new String[] {COL_CREATURE_ID, COL_CREATURE_NAME, COL_CREATURE_HP,COL_CREATURE_TYPE, COL_CREATURE_INVENTORY_MAX_SIZE,
-                COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE},
+                COL_CREATURE_SIZE,COL_CREATURE_WEIGHT, COL_CREATURE_SPEED, COL_CREATURE_STRENGTH, COL_CREATURE_DEFENSE, COL_CREATURE_NBWIN, COL_CREATURE_NBLOSS},
                 COL_CREATURE_ID + " LIKE \"" + id +"\"", null, null, null, null);
         return cursorToCreature(c);
     }
@@ -150,7 +159,7 @@ public class CreatureDAO {
         //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
         creature.setId(c.getInt(NUM_COL_CREATURE_ID));
         creature.setName(c.getString(NUM_COL_CREATURE_NAME));
-        creature.setHp(c.getInt(NUM_COL_CREATURE_HP));
+        creature.setHp(c.getDouble(NUM_COL_CREATURE_HP));
         creature.setName(c.getString(NUM_COL_CREATURE_NAME));
         creature.setType(c.getString(NUM_COL_CREATURE_TYPE));
         creature.setInventory_max_size(c.getInt(NUM_COL_CREATURE_INVENTORY_MAX_SIZE));
@@ -159,6 +168,8 @@ public class CreatureDAO {
         creature.setSpeed(c.getInt(NUM_COL_CREATURE_SPEED));
         creature.setStrength(c.getInt(NUM_COL_CREATURE_STRENGTH));
         creature.setDefense(c.getInt(NUM_COL_CREATURE_DEFENSE));
+        creature.setNbWin(c.getDouble(NUM_COL_CREATURE_NBWIN));
+        creature.setNbLoss(c.getDouble(NUM_COL_CREATURE_NBLOSS));
 
         //On ferme le cursor
         c.close();
@@ -180,7 +191,7 @@ public class CreatureDAO {
                 //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
                 creature.setId(c.getInt(NUM_COL_CREATURE_ID));
                 creature.setName(c.getString(NUM_COL_CREATURE_NAME));
-                creature.setHp(c.getInt(NUM_COL_CREATURE_HP));
+                creature.setHp(c.getDouble(NUM_COL_CREATURE_HP));
                 creature.setName(c.getString(NUM_COL_CREATURE_NAME));
                 creature.setType(c.getString(NUM_COL_CREATURE_TYPE));
                 creature.setInventory_max_size(c.getInt(NUM_COL_CREATURE_INVENTORY_MAX_SIZE));
@@ -189,6 +200,8 @@ public class CreatureDAO {
                 creature.setSpeed(c.getInt(NUM_COL_CREATURE_SPEED));
                 creature.setStrength(c.getInt(NUM_COL_CREATURE_STRENGTH));
                 creature.setDefense(c.getInt(NUM_COL_CREATURE_DEFENSE));
+                creature.setNbWin(c.getDouble(NUM_COL_CREATURE_NBWIN));
+                creature.setNbLoss(c.getDouble(NUM_COL_CREATURE_NBLOSS));
 
                 listCreatures.add(creature);
                 c.moveToNext();

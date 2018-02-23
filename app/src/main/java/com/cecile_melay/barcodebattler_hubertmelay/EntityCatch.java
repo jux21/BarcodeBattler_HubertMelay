@@ -278,7 +278,7 @@ public class EntityCatch extends Activity implements ZXingScannerView.ResultHand
         Log.d("infoCreature",name+" "+hp+" "+type+" "+inventory_max_size+" "+size+" "+weight+" "+defense);
 
         if (name != "" &&  hp != 0 &&  type != "" &&  inventory_max_size != 0 && size != 0  && weight != 0  && defense  != 0) {
-            creature = new Creature(name, hp, type, inventory_max_size, size, weight, defense);
+            creature = new Creature(name, (double) hp, type, inventory_max_size, size, weight, defense);
             persistCreature(creature);
         } else {
             Toast.makeText(this, "code barre non valide", Toast.LENGTH_LONG).show();

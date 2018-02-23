@@ -21,7 +21,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             CREATURE_WEIGHT = "weight",
             CREATURE_SPEED = "speed",
             CREATURE_STRENGTH = "strength",
-            CREATURE_DEFENSE = "defense";
+            CREATURE_DEFENSE = "defense",
+            CREATURE_NBWIN = "nbWin",
+            CREATURE_NBLOSS = "nbLoss";
 
     public static final String EQUIPMENT_TABLE_NAME = "equipment",
             EQUIPMENT_ID = "id",
@@ -67,6 +69,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     CREATURE_WEIGHT + " INTEGER, " +
                     CREATURE_SPEED + " INTEGER, " +
                     CREATURE_STRENGTH + " INTEGER, " +
+                    CREATURE_NBWIN + " DOUBLE, " +
+                    CREATURE_NBLOSS + " DOUBLE, " +
                     CREATURE_DEFENSE + " INTEGER );";
     public static final String CREATURE_TABLE_DROP = "DROP TABLE IF EXISTS " + CREATURE_TABLE_NAME + ";";
 
