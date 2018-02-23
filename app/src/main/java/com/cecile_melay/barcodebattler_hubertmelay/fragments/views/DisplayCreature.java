@@ -42,6 +42,7 @@ public class DisplayCreature extends MyFragment {
     private int defense;
 
     private Button freeButton;
+    private Button EquipButton;
 
 
     @Override
@@ -54,52 +55,63 @@ public class DisplayCreature extends MyFragment {
         final Creature creature = creatureDAO.getCreatureWithID(id);
         creatureDAO.close();
 
-        final TextView title = (TextView) this.contentView.findViewById(R.id.creature_name);
-        title.setText("Infos sur "+creature.getName());
+        if(creature==null) {
+            Home newFragment = new Home();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_frame, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else
+        {
 
-        TextView cartTitle = (TextView) this.contentView.findViewById(R.id.creature_title);
-        cartTitle.setText(creature.getName());
-        cartTitle.setTextColor(Color.RED);
+            final TextView title = (TextView) this.contentView.findViewById(R.id.creature_name);
+            title.setText("Infos sur " + creature.getName());
 
-        ImageView cardImage = (ImageView) this.contentView.findViewById(R.id.card_image);
-        cardImage.setImageResource(creature.getImagePath());
+            TextView cartTitle = (TextView) this.contentView.findViewById(R.id.creature_title);
+            cartTitle.setText(creature.getName());
+            cartTitle.setTextColor(Color.RED);
 
-        TextView creatureDetails = (TextView) this.contentView.findViewById(R.id.creature_details);
-        creatureDetails.setText("PV : " + creature.getHp()
-            + "\nTaille : " + creature.getSize()
-            + "\nType : " + creature.getType()
-            + "\nInventaire : " + creature.getInventory_max_size()
-            + "\nDéfense : " + creature.getDefense()
-            + "\nRapidité : " + creature.getSpeed()
-            + "\nForce : " + creature.getStrength()
-            + "\nPoid : " + creature.getWeight());
+            ImageView cardImage = (ImageView) this.contentView.findViewById(R.id.card_image);
+            cardImage.setImageResource(creature.getImagePath());
 
-        // Suppression de la créature
-        freeButton = (Button) this.contentView.findViewById(R.id.action_free);
-        freeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CreatureDAO creatureDAO = new CreatureDAO(getActivity());
-                creatureDAO.open();
-                int creatureDelete = creatureDAO.removeCreatureWithID(Integer.parseInt(id));
-                creatureDAO.close();
-                if(creatureDelete == 1) {
-                    Toast.makeText(getActivity(), creature.getName()+" supprimé", Toast.LENGTH_LONG).show();
+            TextView creatureDetails = (TextView) this.contentView.findViewById(R.id.creature_details);
+            creatureDetails.setText("PV : " + creature.getHp()
+                    + "\nTaille : " + creature.getSize()
+                    + "\nType : " + creature.getType()
+                    + "\nInventaire : " + creature.getInventory_max_size()
+                    + "\nDéfense : " + creature.getDefense()
+                    + "\nRapidité : " + creature.getSpeed()
+                    + "\nForce : " + creature.getStrength()
+                    + "\nPoid : " + creature.getWeight());
 
-                    DisplayCreatures newFragment = new DisplayCreatures();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment_frame, newFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+            // Suppression de la créature
+            freeButton = (Button) this.contentView.findViewById(R.id.action_free);
+            freeButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    CreatureDAO creatureDAO = new CreatureDAO(getActivity());
+                    creatureDAO.open();
+                    int creatureDelete = creatureDAO.removeCreatureWithID(Integer.parseInt(id));
+                    creatureDAO.close();
+                    if (creatureDelete == 1) {
+                        Toast.makeText(getActivity(), creature.getName() + " supprimé", Toast.LENGTH_LONG).show();
+
+                        EquipButton = (Button) getActivity().findViewById(R.id.action_add_equip);
+
+                        DisplayCreatures newFragment = new DisplayCreatures();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_frame, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+
+                    } else {
+                        Toast.makeText(getActivity(), "Impossible de supprimer " + creature.getName(), Toast.LENGTH_LONG).show();
+                    }
+
 
                 }
-                else {
-                    Toast.makeText(getActivity(), "Impossible de supprimer "+creature.getName(), Toast.LENGTH_LONG).show();
-                }
-
-
-
-            }
-        });
+            });
+        }
     }
 
     @Override
