@@ -92,8 +92,7 @@ public class CreatureDAO {
     }
 
     public int updateCreature(int id, Creature creature){
-        //La mise à jour d'une creature dans la BDD fonctionne plus ou moins comme une insertion
-        //il faut simplement préciser quelle créature on doit mettre à jour grâce à l'ID
+        //il faut préciser quelle créature on doit mettre à jour grâce à l'ID
         ContentValues values = new ContentValues();
         values.put(COL_CREATURE_NAME, creature.getName());
         values.put(COL_CREATURE_HP, creature.getHp());
@@ -107,6 +106,18 @@ public class CreatureDAO {
         values.put(COL_CREATURE_NBWIN, creature.getNbWin());
         values.put(COL_CREATURE_NBLOSS, creature.getNbLoss());
 
+        return bdd.update(CREATURE_TABLE_NAME, values, COL_CREATURE_ID + " = " +id, null);
+    }
+
+    public int updateWinCreature(int id, Creature creature){
+        ContentValues values = new ContentValues();
+        values.put(COL_CREATURE_NBWIN, creature.getNbWin());
+        return bdd.update(CREATURE_TABLE_NAME, values, COL_CREATURE_ID + " = " +id, null);
+    }
+
+    public int updateLooseCreature(int id, Creature creature){
+        ContentValues values = new ContentValues();
+        values.put(COL_CREATURE_NBLOSS, creature.getNbLoss());
         return bdd.update(CREATURE_TABLE_NAME, values, COL_CREATURE_ID + " = " +id, null);
     }
 

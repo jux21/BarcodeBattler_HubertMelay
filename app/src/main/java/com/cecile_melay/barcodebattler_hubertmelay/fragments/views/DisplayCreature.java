@@ -23,6 +23,7 @@ import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 import com.cecile_melay.barcodebattler_hubertmelay.utils.Util;
 
 import java.io.Console;
+import java.text.DecimalFormat;
 
 /**
  * Created by Utilisateur on 25/10/2017.
@@ -44,6 +45,7 @@ public class DisplayCreature extends MyFragment {
     private Button freeButton;
     private Button EquipButton;
 
+    DecimalFormat df = new DecimalFormat("###.##");
 
     @Override
     public void init() {
@@ -77,10 +79,13 @@ public class DisplayCreature extends MyFragment {
 
             TextView creatureDetails = (TextView) this.contentView.findViewById(R.id.creature_details);
             String percentageWin;
+            Log.d("creature.getNbWin", String.valueOf(creature.getNbWin()));
+            Log.d("creature.getNbLoss", String.valueOf(creature.getNbLoss()));
+            Log.d("creature Infos ",creature.toString());
             if(creature.getNbWin()+creature.getNbLoss()==0)
                 percentageWin = " pas encore combattu";
             else
-                percentageWin = String.valueOf(creature.getNbWin()/(creature.getNbWin()+creature.getNbLoss())*100);
+                percentageWin = String.valueOf(df.format(creature.getNbWin()/(creature.getNbWin()+creature.getNbLoss())*100));
 
             creatureDetails.setText("PV : " + creature.getHp()
                     + "\nTaille : " + creature.getSize()

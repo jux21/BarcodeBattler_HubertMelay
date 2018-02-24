@@ -21,6 +21,7 @@ import com.cecile_melay.barcodebattler_hubertmelay.database.dao.CreatureDAO;
 import com.cecile_melay.barcodebattler_hubertmelay.entities.Creature;
 import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 /**
@@ -53,6 +54,8 @@ public class DisplayLocalFight extends MyFragment {
     Double originalHPcreature1;
     Double originalHPcreature2;
 
+    DecimalFormat df = new DecimalFormat("###.##");
+
     @Override
     protected int getLayoutId() {
         return R.layout.display_local_fight;
@@ -69,12 +72,10 @@ public class DisplayLocalFight extends MyFragment {
         cardView1 = (CardView) this.contentView.findViewById(R.id.card_view1);
         cardView2 = (CardView) this.contentView.findViewById(R.id.card_view);
 
-
-
         //Get creature 1 and 2 data
         String id1 = ((MainActivity) getActivity()).getParam1();
         String id2 = ((MainActivity) getActivity()).getParam2();
-        CreatureDAO creatureDAO = new CreatureDAO(getActivity());
+        final CreatureDAO creatureDAO = new CreatureDAO(getActivity());
         creatureDAO.open();
         final Creature creature1 = creatureDAO.getCreatureWithID(id1);
         creatureDAO.close();
@@ -191,7 +192,20 @@ public class DisplayLocalFight extends MyFragment {
                     cardView2.setLayoutParams(params);
                     cartTitle.setTextColor(Color.GREEN);
                     cardView1.setVisibility(View.GONE);
+                    creature2.setNbWin(creature2.getNbWin()+1);
+                    creature1.setNbLoss(creature1.getNbLoss()+1);
+                    creatureDAO.open();
+                    creatureDAO.updateLooseCreature(creature1.getId(),creature1);
+                    creatureDAO.updateWinCreature(creature2.getId(),creature2);
+                    creatureDAO.close();
                    //cardView2.setPadding(0,35,0,0);
+                    String textWin = "PV : " + creature2.getHp()
+                            + "  - Armure : " + creature2.getDefense()
+                            + "\nAttaque : " + creature2.getStrength()
+                            + " - Vitesse : " + creature2.getSpeed()
+                            + "\n% de victoire " +df.format(creature2.getNbWin()/(creature2.getNbWin()+creature2.getNbLoss())*100);
+                    creatureDetails.setText(textWin.replace("\n", System.getProperty("line.separator")));
+                    Log.d("creature Infos ",creature2.toString());
                 }
             }
         });
@@ -223,6 +237,19 @@ public class DisplayLocalFight extends MyFragment {
                     cardView1.setLayoutParams(params);
                     cartTitle1.setTextColor(Color.GREEN);
                     cardView2.setVisibility(View.GONE);
+                    creature1.setNbWin(creature1.getNbWin()+1);
+                    creature2.setNbLoss(creature2.getNbLoss()+1);
+                    creatureDAO.open();
+                    creatureDAO.updateWinCreature(creature1.getId(),creature1);
+                    creatureDAO.updateLooseCreature(creature2.getId(),creature2);
+                    creatureDAO.close();
+                    String textWin = "PV : " + creature1.getHp()
+                            + "  - Armure : " + creature1.getDefense()
+                            + "\nAttaque : " + creature1.getStrength()
+                            + " - Vitesse : " + creature1.getSpeed()
+                            + "\n% de victoire " +df.format(creature1.getNbWin()/(creature1.getNbWin()+creature1.getNbLoss())*100);
+                    creatureDetails1.setText(textWin.replace("\n", System.getProperty("line.separator")));
+                    Log.d("creature Infos ",creature1.toString());
                 }
             }
         });

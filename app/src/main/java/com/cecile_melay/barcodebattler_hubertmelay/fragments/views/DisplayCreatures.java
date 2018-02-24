@@ -40,6 +40,7 @@ public class DisplayCreatures extends MyFragment {
     private int id;
     private int force;
     private int defense;
+    private int speed;
     private int imagePath;
 
     //Detect wich action to launch (local fight, nfc fight, or show creature details)
@@ -87,6 +88,7 @@ public class DisplayCreatures extends MyFragment {
                 name = creature.getName();
                 hp = creature.getHp();
                 type = creature.getType();
+                speed = creature.getSpeed();
                 imagePath = creature.getImagePath();
                 force = creature.getStrength();
                 defense = creature.getDefense();
@@ -110,7 +112,7 @@ public class DisplayCreatures extends MyFragment {
 
 
                 //on insère un élément description que l'on récupérera dans le textView description créé dans le fichier affichageitem.xml
-                map.put("description", "\nPV : "+ hp + "\nForce : " +force + "\nDéfense : " + defense +"\nType : " + type);
+                map.put("description", "\nPV : "+ hp + "\nForce : " +force + "\nDéfense : " + defense + "\nVitesse : " + speed + "\nType : " + type);
                 //enfin on ajoute cette hashMap dans la arrayList
                 listItem.add(map);
             }
