@@ -66,8 +66,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="S'entraîner"
+                android:layout_alignParentLeft="true"
+                android:text="Combat en local"
                 android:textColor="?attr/colorPrimary" />
 
             <Button
@@ -77,8 +77,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@+id/creature_details"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="6dp"
-                android:text="Combattre"
+                android:layout_alignParentRight="true"
+                android:text="Combat NFC"
                 android:textColor="?attr/colorPrimary" />
 
             <Button

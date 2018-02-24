@@ -19,6 +19,7 @@ import com.cecile_melay.barcodebattler_hubertmelay.fragments.MyFragment;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,8 @@ public class DisplayCreatures extends MyFragment {
     private int defense;
     private int speed;
     private int imagePath;
+
+    DecimalFormat df = new DecimalFormat("###.##");
 
     //Detect wich action to launch (local fight, nfc fight, or show creature details)
     String actionOnClickItem;
@@ -112,7 +115,7 @@ public class DisplayCreatures extends MyFragment {
 
 
                 //on insère un élément description que l'on récupérera dans le textView description créé dans le fichier affichageitem.xml
-                map.put("description", "\nPV : "+ hp + "\nForce : " +force + "\nDéfense : " + defense + "\nVitesse : " + speed + "\nType : " + type);
+                map.put("description", "\nPV : "+ hp.intValue() + "\nForce : " +force + "\nDéfense : " + defense + "\nVitesse : " + speed + "\nType : " + type +"\n% de victoire : "+df.format(creature.getNbWin()/(creature.getNbWin()+creature.getNbLoss())*100));
                 //enfin on ajoute cette hashMap dans la arrayList
                 listItem.add(map);
             }

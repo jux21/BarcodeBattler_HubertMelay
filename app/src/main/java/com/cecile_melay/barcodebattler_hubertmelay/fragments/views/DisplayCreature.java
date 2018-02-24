@@ -87,7 +87,7 @@ public class DisplayCreature extends MyFragment {
             else
                 percentageWin = String.valueOf(df.format(creature.getNbWin()/(creature.getNbWin()+creature.getNbLoss())*100));
 
-            creatureDetails.setText("PV : " + creature.getHp()
+            creatureDetails.setText("PV : " + creature.getHp().intValue()
                     + "\nTaille : " + creature.getSize()
                     + "\nType : " + creature.getType()
                     + "\nInventaire : " + creature.getInventory_max_size()
